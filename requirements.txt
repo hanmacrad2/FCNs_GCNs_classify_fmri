@@ -1,0 +1,17 @@
+h5py
+lmdb
+matplotlib
+nibabel
+nilearn
+numpy
+pandas
+scikit-learn
+scipy
+seaborn
+sklearn
+torch
+torchvision
+torch-cluster
+torch-geometric
+torch-scatter
+torch-sparse
