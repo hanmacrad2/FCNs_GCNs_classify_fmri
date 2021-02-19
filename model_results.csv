@@ -1,0 +1,7 @@
+,,FCN - Fully Connected,GCN_1st_order,GCN_5th_order,GCN_8th_order
+filtered_&_norm,6,0.931,0.463,0.694,0.696
+filtered_&_norm,8,0.89,0.509,0.825,0.77
+filtered_&_norm,16,0.927,0.615,0.844,0.823
+filtered,6,0.873,0.471,0.729,0.665
+filtered,8,0.89,0.526,0.771,0.731
+filtered,16,0.93,0.662,0.842,0.819
