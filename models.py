@@ -440,20 +440,22 @@ def test(model, adj_mat, device, test_loader, n_labels, loss_func):
 
             #Confusion matrix
             for target_class, pred in zip(target_classes.view(-1), predictions.view(-1)): #Traverse the lists in parallel
-                confusion_matrix[t.long(), p.long()] += 1 #Inrease number at that point in confusion matrix
+                confusion_matrix[target_class.long(), predictions.long()] += 1 #Inrease number at that point in confusion matrix
             
             #Inspect
-            print(f'Total = {total}')
+            #print(f'Total = {total}')
     
     test_loss /= total
     test_acc /= total
 
     print('Test Loss {:4f} | Acc {:4f}'.format(test_loss,test_acc))
-    return test_loss, test_acc, confusion_matrix
+    return test_loss, test_acc, confusion_matrix, predictions, target_classes
 
 def model_fit_evaluate(model,adj_mat,device,train_loader, test_loader, n_labels, optimizer,loss_func,num_epochs=100):
     best_acc = 0 
     best_confusion_matrix = 0
+    best_predictions = 0
+    best_target_classes = 0
     model_history={}
     model_history['train_loss']=[];
     model_history['train_acc']=[];
@@ -464,12 +466,14 @@ def model_fit_evaluate(model,adj_mat,device,train_loader, test_loader, n_labels,
         model_history['train_loss'].append(train_loss)
         model_history['train_acc'].append(train_acc)
 
-        test_loss, test_acc, confusion_matrix = test(model, adj_mat, device, test_loader, n_labels, loss_func)
+        test_loss, test_acc, confusion_matrix, predictions, target_classes = test(model, adj_mat, device, test_loader, n_labels, loss_func)
         model_history['test_loss'].append(test_loss)
         model_history['test_acc'].append(test_acc)
         if test_acc > best_acc:
             best_acc = test_acc
             best_confusion_matrix = confusion_matrix
+            best_predictions = predictions
+            best_target_classes = target_classes
             print("Model updated: Best-Acc = {:4f}".format(best_acc))
 
     print("Best Testing accuarcy:",best_acc)
