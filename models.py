@@ -410,7 +410,7 @@ def train(model, adj_mat, device, train_loader, optimizer,loss_func, epoch):
         #Accuracy - torch.eq computes element-wise equality
         acc += pred.eq(target.view_as(pred)).sum().item()
         
-        loss.backward()
+        loss.backward() 
         optimizer.step()
 
 
@@ -419,24 +419,35 @@ def train(model, adj_mat, device, train_loader, optimizer,loss_func, epoch):
 
 def test(model, adj_mat, device, test_loader, n_labels, loss_func):
     model.eval()
-    test_loss=0.
-    test_acc = 0.
-    total = 0
+    test_loss=0.; test_acc = 0.
+    count = 0; total = 0
+    prop_equal = torch.zeros([n_labels], dtype=torch.int32)
+    
     #Include n_classes *********
     confusion_matrix = torch.zeros(n_labels, n_labels)
     ##no gradient desend for testing
     with torch.no_grad():
         for data, target_classes in test_loader:
             data, target_classes = data.to(device), target_classes.to(device)
-            out = model(data, adj_mat)
+            #Shapes
+            print('************')
+            print(f'\n Data shape ={data.shape}, Target class shape = {target_classes.shape}')
             
+            out = model(data, adj_mat)  
             loss = loss_func(out, target_classes)
             test_loss += loss.sum().item()
-            predictions = F.log_softmax(out, dim=1).argmax(dim=1) #log of softmax. Get the index with the greatest probability 
+            predictions = F.log_softmax(out, dim=1).argmax(dim=1) #log of softmax. Get the index/class with the greatest probability 
             #pred = out.argmax(dim=1,keepdim=True) # get the index of the max log-probability
             total += target_classes.size(0)
+
             #Accuracy - torch.eq computes element-wise equality
             test_acc += predictions.eq(target_classes.view_as(predictions)).sum().item() #.item gets actual sum value (rather then tensor object), like array[0]
+
+            #Proporation equal
+            #print(f'prop_equal.shape ={prop_equal.shape}')
+            #print(f'predictions.shape ={prop_equal.shape}')
+            #print(f'target_classes.shape ={prop_equal.shape}')
+            prop_equal += predictions.eq(target_classes).view_as(predictions)*1 #Convert boolean to 1,0 integer   
 
             #Confusion matrix
             for target_class, pred in zip(target_classes.view(-1), predictions.view(-1)): #Traverse the lists in parallel
@@ -444,36 +455,36 @@ def test(model, adj_mat, device, test_loader, n_labels, loss_func):
             
             #Inspect
             #print(f'Total = {total}')
+            count += 1
     
     test_loss /= total
     test_acc /= total
 
+    print(f'\nTOTAL ={total}')
     print('Test Loss {:4f} | Acc {:4f}'.format(test_loss,test_acc))
-    return test_loss, test_acc, confusion_matrix, predictions, target_classes
+    return test_loss, test_acc, confusion_matrix, predictions, target_classes, prop_equal, count
 
 def model_fit_evaluate(model,adj_mat,device,train_loader, test_loader, n_labels, optimizer,loss_func,num_epochs=100):
     best_acc = 0 
-    best_confusion_matrix = 0
-    best_predictions = 0
-    best_target_classes = 0
+    best_confusion_matrix = 0; best_count = 0
+    best_predictions = 0; best_target_classes = 0
+    best_prop = torch.zeros([n_labels], dtype=torch.int32)
     model_history={}
-    model_history['train_loss']=[];
-    model_history['train_acc']=[];
-    model_history['test_loss']=[];
-    model_history['test_acc']=[];  
+    model_history['train_loss']=[]; model_history['train_acc']=[];
+    model_history['test_loss']=[];  model_history['test_acc']=[];  
     for epoch in range(num_epochs):
         train_loss, train_acc = train(model, adj_mat, device, train_loader, optimizer,loss_func, epoch)
         model_history['train_loss'].append(train_loss)
         model_history['train_acc'].append(train_acc)
-
-        test_loss, test_acc, confusion_matrix, predictions, target_classes = test(model, adj_mat, device, test_loader, n_labels, loss_func)
+        #Test accuracy for each epoch
+        test_loss, test_acc, confusion_matrix, predictions, target_classes, prop_equal, count = test(model, adj_mat, device, test_loader, n_labels, loss_func)
         model_history['test_loss'].append(test_loss)
         model_history['test_acc'].append(test_acc)
         if test_acc > best_acc:
             best_acc = test_acc
             best_confusion_matrix = confusion_matrix
-            best_predictions = predictions
-            best_target_classes = target_classes
+            best_predictions = predictions; best_target_classes = target_classes
+            best_prop = prop_equal; best_count = count
             print("Model updated: Best-Acc = {:4f}".format(best_acc))
 
     print("Best Testing accuarcy:",best_acc)
@@ -482,7 +493,7 @@ def model_fit_evaluate(model,adj_mat,device,train_loader, test_loader, n_labels,
 
     plot_history(model_history)
    
-    return best_acc, best_confusion_matrix
+    return best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count
 
 def plot_history(model_history):
     plt.figure(figsize=(10,4))
@@ -537,4 +548,4 @@ class MulticlassClassification(nn.Module):
         return x
 
 def check_it_updates():
-    print('It updates :)')
+    print('It updates :) x3')

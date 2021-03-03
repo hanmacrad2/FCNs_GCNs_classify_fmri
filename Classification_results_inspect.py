@@ -12,13 +12,13 @@ import datetime
 import numpy as np
 import pandas as pd
 import scipy.io
+import matplotlib.pyplot as plt
 
 from scipy import sparse
 from scipy.stats import spearmanr
 from sklearn import preprocessing, metrics,manifold
 from sklearn.model_selection import cross_val_score, train_test_split,ShuffleSplit
 import itertools
-
 
 import torch
 import torch.nn as nn
@@ -29,12 +29,12 @@ from torch.utils.data import DataLoader
 from util_funcs import *
 from models import *
 
-import importlib
-importlib.reload(models.model_fit_evaluate)
-importlib.reload(models.test)
+#Relaoding of 
+#from models import model_fit_evaluate as model_fit_evaluate 
+#import importlib
+#importlib.reload(models.model_fit_evaluate)
+#importlib.reload(models.test)
 
-
-import matplotlib.pyplot as plt
 #%matplotlib inline
 import warnings
 warnings.filterwarnings(action='once')
@@ -105,7 +105,7 @@ print(np.array(fmri_filtered).shape)
 #***************
 #Dataloader
 #Split into train and test 
-params = {'batch_size': 2, 
+params = {'batch_size': 1,  #2
           'shuffle': True,
           'num_workers': 2}
 test_size = 0.2
@@ -131,6 +131,7 @@ test_loader = DataLoader(fmri_test, collate_fn=fmri_samples_collate_fn, **params
 
 #***************************************************************
 #Inspect Accuracy results
+check_it_updates()
 
 #Block duration
 print(f'Block duration = {block_duration}')
@@ -145,7 +146,7 @@ loss_func = nn.CrossEntropyLoss()
 num_epochs=10
 #adj_mat = 'a'
 
-best_acc, best_confusion_matrix, best_predictions, best_target_classes  = model_fit_evaluate(model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
+best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count  = model_fit_evaluate(model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
 
 #Save results to file
 version = 1
