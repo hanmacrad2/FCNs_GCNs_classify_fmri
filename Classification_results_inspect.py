@@ -3,6 +3,7 @@
 
 #Imports
 print('Start')
+reverse_direction = True 
 import os
 import sys
 import math
@@ -59,6 +60,12 @@ print(len(subj_list)) #644 subjects
 #Match fmri movie shape
 fmri = fmri[:,:193,:]
 fmri.shape
+
+#Reverse direction
+if reverse_direction:
+    print('DIRECTION REVERSED')
+    fmri = np.flip(fmri, axis = 1)
+    print(f'fmri shape = {fmri.shape}')
 
 #Adjacency matrix
 root_pth = '/camcan/schaefer_parc/'
