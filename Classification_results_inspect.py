@@ -183,7 +183,7 @@ optimizer = optim.Adam(model_test.parameters(),lr=0.001, weight_decay=5e-4)
 gcn_best_acc, gcn_best_confusion_matrix, gcn_best_predictions, gcn_best_target_classes, gcn_best_prop, gcn_best_count = model_fit_evaluate(model_test, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
 
 #*******************
-#Fifth order
+#Fifth order GCN
 
 #Model params 
 k_order = 5

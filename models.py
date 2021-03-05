@@ -548,4 +548,5 @@ class MulticlassClassification(nn.Module):
         return x
 
 def check_it_updates():
-    print('It updates :) x3')
+    print('It updates :) x4')
+    
