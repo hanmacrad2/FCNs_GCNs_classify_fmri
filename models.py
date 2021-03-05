@@ -430,8 +430,8 @@ def test(model, adj_mat, device, test_loader, n_labels, loss_func):
         for data, target_classes in test_loader:
             data, target_classes = data.to(device), target_classes.to(device)
             #Shapes
-            print('************')
-            print(f'\n Data shape ={data.shape}, Target class shape = {target_classes.shape}')
+            #print('************')
+            #print(f'\n Data shape ={data.shape}, Target class shape = {target_classes.shape}')
             
             out = model(data, adj_mat)  
             loss = loss_func(out, target_classes)

@@ -3,6 +3,7 @@
 
 #Imports
 print('Start')
+task_type =  'Movie' #'Rest'
 reverse_direction = True 
 import os
 import sys
@@ -51,7 +52,6 @@ print(device)
 #****************************************
 #Data
 root_pth = '/camcan/schaefer_parc/'
-task_type = 'Rest'
 fmri, subj_list = get_fmri_data(root_pth, task_type)
 print(np.array(fmri).shape) #(193, 400)
 print(len(subj_list)) #644 subjects
@@ -156,7 +156,50 @@ num_epochs=10
 best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count  = model_fit_evaluate(model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
 
 #Save results to file
-version = 1
-with open('best_confusion_matrix{}.txt'.format(version), 'w') as f:
-    for row in best_confusion_matrix:
-        f.write(' '.join([str(a) for a in row]) + '\n')
+#version = 1
+#with open('best_confusion_matrix{}.txt'.format(version), 'w') as f:
+#    for row in best_confusion_matrix:
+#        f.write(' '.join([str(a) for a in row]) + '\n')
+
+#**************************
+#Graphical model
+from model import ChebNet
+
+print(f'Block duration = {block_duration}')
+#Model params 
+loss_func = nn.CrossEntropyLoss()
+filters = 32; num_layers = 2
+num_epochs = 10 
+model_test = ChebNet(block_duration, filters, n_labels, gcn_layer = num_layers,dropout=0.25,gcn_flag=True)
+#model_test = ChebNet(block_dura, filters, Nlabels, K=5,gcn_layer=num_layers,dropout=0.25)
+
+model_test = model_test.to(device)
+adj_mat = adj_mat.to(device)
+print(model_test)
+print("{} paramters to be trained in the model\n".format(count_parameters(model_test)))
+
+optimizer = optim.Adam(model_test.parameters(),lr=0.001, weight_decay=5e-4)
+
+gcn_best_acc, gcn_best_confusion_matrix, gcn_best_predictions, gcn_best_target_classes, gcn_best_prop, gcn_best_count = model_fit_evaluate(model_test, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
+
+#*******************
+#Fifth order
+
+#Model params 
+k_order = 5
+print(f'Block duration = {block_duration}')
+loss_func = nn.CrossEntropyLoss()
+filters = 32; num_layers = 2
+num_epochs = 10 
+
+#Model
+model_test = ChebNet(block_duration, filters, n_labels, K=k_order, gcn_layer=num_layers,dropout=0.25)
+
+model_test = model_test.to(device)
+#adj_mat = adj_mat.to(device)
+print(model_test)
+print("{} paramters to be trained in the model\n".format(count_parameters(model_test)))
+
+optimizer = optim.Adam(model_test.parameters(),lr=0.001, weight_decay=5e-4)
+
+gcn_best_acc5, gcn_best_confusion_matrix5, gcn_best_predictions5, gcn_best_target_classes5, gcn_best_prop5, gcn_best_count5 = model_fit_evaluate(model_test, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
