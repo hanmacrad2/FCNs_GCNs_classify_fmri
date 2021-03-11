@@ -3,8 +3,8 @@
 
 #Imports
 print('Start')
-task_type =  'Movie' #'Rest'
-reverse_direction = True 
+task_type =  'Rest' #'Rest'
+reverse_direction = False 
 import os
 import sys
 import math
@@ -68,9 +68,9 @@ if reverse_direction:
     print(f'fmri shape = {fmri.shape}')
 
 #Adjacency matrix
-root_pth = '/camcan/schaefer_parc/'
-adj_mat = get_rsfmri_adj_matrix(root_pth) #Should save this rather then recalculating 
-adj_mat = Adjacency_matrix(adj_mat, n_neighbours = 8).get_adj_sp_torch_tensor()
+#root_pth = '/camcan/schaefer_parc/'
+#adj_mat = get_rsfmri_adj_matrix(root_pth) #Should save this rather then recalculating 
+#adj_mat = Adjacency_matrix(adj_mat, n_neighbours = 8).get_adj_sp_torch_tensor()
 
 #Model/fmri paratmeters
 TR = 2.47
@@ -109,12 +109,13 @@ standardize =  'zscore' #'psc', False
 fmri_filtered = filter_fmri(fmri, standardize)
 print(np.array(fmri_filtered).shape)
 
-#***************
-#Dataloader
-#Split into train and test 
+#************************************************************
+#2. Dataloader
 params = {'batch_size': 1,  #2
           'shuffle': True,
           'num_workers': 2}
+          
+#Split into train and test 
 test_size = 0.2
 randomseed= 12345
 rs = np.random.RandomState(randomseed)
@@ -136,10 +137,35 @@ print(np.array(fmri_data_test).shape)
 fmri_test = Fmri_dataset(fmri_data_test, TR, block_duration)
 test_loader = DataLoader(fmri_test, collate_fn=fmri_samples_collate_fn, **params)
 
-#***************************************************************
-#Inspect Accuracy results
-check_it_updates()
+#*************************************
+#3. Compare train + test trends
+#i. Loop -> matrix of train + test
+#ii. Average value for each class (32)
+#ii. Plot train vs test 
 
+#Train
+fmri_train_matrix = []
+for i in np.arange(0,len(train_idx)): #Loop through subjects
+    fmri_train_matrix.append(fmri_train.__getitem__(i)[0].numpy())
+
+fmri_train_matrix = np.array(fmri_train_matrix)
+
+#Average over subjects, time within a block, ROIs 
+fmri_train_avg_across_blocks = np.mean(np.mean(np.mean(fmri_train_matrix, axis = 0), axis = 1), axis = 1)
+
+#Test
+fmri_test_matrix = []
+for i in np.arange(0,len(test_idx)): #Loop through subjects
+    fmri_test_matrix.append(fmri_test.__getitem__(i)[0].numpy())
+
+fmri_test_matrix = np.array(fmri_test_matrix)
+
+#Average over subjects, time within a block, ROIs
+fmri_test_avg_across_blocks = np.mean(np.mean(np.mean(fmri_test_matrix, axis = 0), axis = 1), axis = 1)
+
+
+#***************************************************************
+#Model - Inspect Accuracy results
 #Block duration
 print(f'Block duration = {block_duration}')
 
