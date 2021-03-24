@@ -105,51 +105,112 @@ print(np.array(fmri_filtered).shape)
 
 #*****************************************
 #Split into networks
-class Network_Models(nn.Module):
+class Network_Model():
     'Fully Connected Network'
-    def __init__(self, fmri_data, network_file):
-        super(Network_Models, self).__init__()
+    def __init__(self, fmri_data, network_file, block_duration):
+        super(Network_Model, self).__init__()
         
         #Data
         self.fmri_data = fmri_data
         self.df_network = pd.read_csv(network_file, delimiter = "\t")
         self.list_networks = ['Vis', 'SomMot', 'DorsAttn', 'VentAttn', 'Limbic', 'Cont', 'Default']
 
-        #Params
+        #fmri params
+        self.n_regions = np.array(fmri).shape[2]
+        self.num_subjects = fmri.shape[0]
+        self.block_duration = block_duration #8 #16 #6 8 -Factor of 192 
+        self.total_time = fmri.shape[1]
+        self.n_blocks = total_time // block_duration
+        self.n_labels = n_blocks
+
+        #Model params
         self.params = {'batch_size': 2,
         'shuffle': True,
         'num_workers': 2}
         self.test_size = 0.2
         self. randomseed= 12345
         self.rs = np.random.RandomState(randomseed)
+        self.df_results = pd.DataFrame()
     
-    def create_network_data(self, fmri_data, list_networks)
+    def create_network_data(self)
 
-        df_network['network'] = df_network['network_name']
+        self.df_network['network'] = self.df_network['network_name']
         #Subset networks 
-        for netw in list_networks:
-            df_network.loc[df_network['network'].str.contains(netw), 'network'] = netw
+        for netw in self.list_networks:
+            self.df_network.loc[df_network['network'].str.contains(netw), 'network'] = netw
 
-        #Extract from fmri
-        for netw in list_networks:
-            indx = df.index[df["network"] == netw].tolist()
-
-        return df_network
+        self.df_network
     
-    def get_network(self, fmri, networkX):
+    def get_network_fmri(self, df_network):
 
-        indx_netw = df.index[df["network"] == networkX].tolist()
-        fmri_network = fmri_data[:,:,indx_netw]
+        indx_netw = df_network.index[df["network"] == networkX].tolist()
+        fmri_network = self.fmri[:,:,indx_netw]
+        print(f'{networkX} network fmri shape = {fmri_network.shape}')
 
-        return fmri_network
+        #Num regioins
+        n_regions = fmri_network.shape[2]
+        return fmri_network, n_regions
 
-    def run_model(self, )
+    def get_train_test_data(self, fmri_network, params, n_subjects, TR, block_duration):
 
-        self.df
+        #Training/Test indices
+        train_idx, test_idx = train_test_split(range(n_subjects), test_size = test_size, random_state=rs, shuffle=True)
+        print('Training on %d subjects, Testing on %d subjects' % (len(train_idx), len(test_idx)))
 
-    def repeat_all_networks(self):
+        #Train set
+        fmri_data_train = [fmri_network[i] for i in train_idx] #Training subjects 
+        fmri_train = Fmri_dataset(fmri_data_train, TR, block_duration)
+        train_loader = DataLoader(fmri_train, collate_fn = fmri_samples_collate_fn, **params)
 
-        df_results
+        #Test set
+        fmri_data_test = [fmri_filtered[i] for i in test_idx]
+        fmri_test = Fmri_dataset(fmri_data_test, TR, block_duration)
+        test_loader = DataLoader(fmri_test, collate_fn=fmri_samples_collate_fn, **params)
+
+        return train_loader, test_loader
+
+    def run_model(self, fmri_networkX)
+        'Run FCN model'
+
+        #Network fmri params
+        n_regions = fmri_networkX.shape[2]
+        model = FCN(n_regions, self.n_labels) #time points == x, regions == rows 
+        model = model.to(device)
+        print(model)
+        print("{} paramters to be trained in the model\n".format(count_parameters(model)))
+        optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
+        loss_func = nn.CrossEntropyLoss()
+        num_epochs=10
+        
+        best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count  = model_fit_evaluate(model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
+
+        return best_acc, best_prop
+
+    def get_df_results_networks(self):
+
+        df_results = pd.DataFrame()
+        list_acc = [], list_prop = []
+
+        for networkX in self.list_networks:
+
+            fmri_networkX, n_regions = self.get_network(self.fmri, networkX) #fmri or self.fmri?? 
+            best_acc, best_prop = self.run_model(fmri_networkX, n_regions, self.n_labels)
+            list_acc.append(best_acc)
+            list_prop.append(best_prop)
+        
+        #Dataframe
+        df_results['network'] = self.list_networks
+        df_results['accuracy'] = list_acc
+        df_results['proportion'] = list_prop
+
+        self.df_results = df_results
+
+
+#Apply
+network_file = 'networks_7_parcel_400.txt'
+netw_model = Network_Model(fmri_filtered, network_file, block_duration)
+Network_Model.get_df_results_networks(netw_model)
+df_results = (netw_model.df_results)
 
 
 
@@ -198,7 +259,7 @@ loss_func = nn.CrossEntropyLoss()
 num_epochs=10
 #adj_mat = 'a'
 
-best_acc, best_confusion_matrix, best_predictions, best_target_classes  = model_fit_evaluate(model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
+best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count  = model_fit_evaluate(model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
 
 #Save results to file
 version = 1
