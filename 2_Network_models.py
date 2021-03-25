@@ -27,22 +27,6 @@ import sys
 import os
 print('Start')
 
-
-#importlib.reload(models.model_fit_evaluate)
-#importlib.reload(models.test)
-
-
-# %matplotlib inline
-warnings.filterwarnings(action='once')
-# %load_ext autoreload #%autoreload #%reload_ext autoreload #import sys #reload(sys)
-
-# imports
-# pip install torch-scatter -f https://pytorch-geometric.com/whl/torch-1.7.0+cu102.html
-
-# CPU
-device = torch.device("cpu")
-print(device)
-
 # ****************************************
 # Data
 root_pth = '/camcan/schaefer_parc/'
@@ -50,11 +34,6 @@ task_type = 'Movie'
 fmri, subj_list = get_fmri_data(root_pth, task_type)
 print(np.array(fmri).shape)  # (193, 400)
 print(len(subj_list))  # 644 subjects
-#fmri_copy = fmri.copy()
-
-# Match fmri movie shape
-fmri = fmri[:, :193, :]
-fmri.shape
 
 # Adjacency matrix
 root_pth = '/camcan/schaefer_parc/'
@@ -62,25 +41,8 @@ root_pth = '/camcan/schaefer_parc/'
 adj_mat = get_rsfmri_adj_matrix(root_pth)
 adj_mat = Adjacency_matrix(adj_mat, n_neighbours=8).get_adj_sp_torch_tensor()
 
-# Model/fmri paratmeters
-TR = 2.47
-n_subjects = np.array(fmri).shape[0]
-print(f'N subjects = {n_subjects}')
-n_regions = np.array(fmri).shape[2]
-print(n_regions)
-
-# Specify block duration
-block_duration = 6  # 8 #16 #6 8 -Factor of 192
-total_time = fmri.shape[1]
-n_blocks = total_time // block_duration
-n_labels = n_blocks
-print(f'Number of blocks = {n_blocks}')
-total_time = block_duration*n_blocks  # Rounded number
-print(f'Total time = {total_time}')
-
-# *************
+#****************************************************
 # Data preprocessing - filter + normalise fmri
-
 def filter_fmri(fmri, standardize):
     'filter fmri signal'
 
@@ -95,17 +57,16 @@ def filter_fmri(fmri, standardize):
 
     return np.array(fmri_filtered)
 
-
 # Apply
 standardize = 'zscore'  # 'psc', False
 fmri_filtered = filter_fmri(fmri, standardize)
 print(np.array(fmri_filtered).shape)
 
-
 # *****************************************
 # Network models
 class Network_Model():
-    'Fully Connected Network'
+    
+    '''Class to run FCN models for x7 network parcellation '''
 
     def __init__(self, fmri, adj_mat, network_file, block_duration):
         super(Network_Model, self).__init__()
