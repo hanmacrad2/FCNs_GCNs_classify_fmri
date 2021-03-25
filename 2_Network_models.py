@@ -81,7 +81,6 @@ print(f'Total time = {total_time}')
 # *************
 # Data preprocessing - filter + normalise fmri
 
-
 def filter_fmri(fmri, standardize):
     'filter fmri signal'
 
@@ -101,10 +100,10 @@ def filter_fmri(fmri, standardize):
 standardize = 'zscore'  # 'psc', False
 fmri_filtered = filter_fmri(fmri, standardize)
 print(np.array(fmri_filtered).shape)
-#fmri_filtered = np.array(fmri_filtered)
+
 
 # *****************************************
-# Split into networks
+# Network models
 class Network_Model():
     'Fully Connected Network'
 
@@ -220,73 +219,9 @@ class Network_Model():
 
         return best_acc, best_prop
 
-
-
-# Apply
+#Network class
 network_file = 'networks_7_parcel_400.txt'
 netw_model = Network_Model(fmri_filtered, adj_mat, network_file, block_duration)
-
 df_results = netw_model.get_df_results_networks()
 
 
-
-
-
-
-
-
-
-# ***************
-# Dataloader
-# Split into train and test
-params = {'batch_size': 2,
-          'shuffle': True,
-          'num_workers': 2}
-test_size = 0.2
-randomseed = 12345
-rs = np.random.RandomState(randomseed)
-
-
-# Training/Test indices
-train_idx, test_idx = train_test_split(range(n_subjects), test_size=test_size, random_state=rs, shuffle=True)
-print('Training on %d subjects, Testing on %d subjects' %
-      (len(train_idx), len(test_idx)))
-
-# Train set
-print(f'Block duration = {block_duration}')
-fmri_data_train = [fmri_filtered[i] for i in train_idx]  # Training subjects
-print(np.array(fmri_data_train).shape)
-fmri_train = Fmri_dataset(fmri_data_train, TR, block_duration)
-train_loader = DataLoader(fmri_train, collate_fn=fmri_samples_collate_fn, **params)
-
-# Test set
-fmri_data_test = [fmri_filtered[i] for i in test_idx]
-print(np.array(fmri_data_test).shape)
-fmri_test = Fmri_dataset(fmri_data_test, TR, block_duration)
-test_loader = DataLoader(
-    fmri_test, collate_fn=fmri_samples_collate_fn, **params)
-
-# ***************************************************************
-# Inspect Accuracy results
-
-# Block duration
-print(f'Block duration = {block_duration}')
-
-# Define model
-model = FCN(n_regions, n_labels)  # time points == x, regions == rows
-model = model.to(device)
-print(model)
-print("{} paramters to be trained in the model\n".format(count_parameters(model)))
-optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
-loss_func = nn.CrossEntropyLoss()
-num_epochs = 10
-#adj_mat = 'a'
-
-best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count = model_fit_evaluate(
-    model, adj_mat, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs)
-
-# Save results to file
-version = 1
-with open('best_confusion_matrix{}.txt'.format(version), 'w') as f:
-    for row in best_confusion_matrix:
-        f.write(' '.join([str(a) for a in row]) + '\n')
