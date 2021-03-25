@@ -185,4 +185,32 @@ network_file = 'networks_7_parcel_400.txt'
 netw_model = Network_Model(fmri_filtered, adj_mat, network_file, block_duration)
 df_results = netw_model.get_df_results_networks()
 
+#Output
+df_results['proportion'] = df_results['proportion'].apply(lambda x: x.numpy())
+#Save
+df_results.to_pickle('df_network_results.pkl')
 
+#Plot proportions
+def plot_proportion(df_results):
+    'Plot proportion of correctly classified test cases correct across Blocks'
+
+    #Block index
+    index  = np.arange(0, len(df_results['proportion'][0]))
+
+    #Plot
+    plt.figure(figsize=(8, 6))
+    colors = ["red", "blue" , "green", "orange", "purple", 'black', 'yellow']
+    #Plot
+    for ind, colorX in enumerate(colors):
+        plt.scatter(index, 100*df_results['proportion'][ind], color = colorX, label = df_results['network'][ind])
+    
+    plt.title(f'Network FCN models - proportion correct vs time')
+    plt.xlabel('Block')
+    plt.ylabel('% Subjects correct (109 in test set)')
+    plt.legend()
+    plt.show()
+
+#%% 
+plot_proportion(plot_proportion(df_results))
+
+# %%
