@@ -213,4 +213,3 @@ def plot_proportion(df_results):
 #%% 
 plot_proportion(plot_proportion(df_results))
 
-# %%
