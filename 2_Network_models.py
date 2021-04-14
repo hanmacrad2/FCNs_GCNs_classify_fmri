@@ -93,6 +93,8 @@ class Network_Model():
                        'shuffle': True,
                        'num_workers': 2}
         self.test_size = 0.2
+        self.num_train_sub = 0
+        self.num_test_sub = 0
         self.randomseed = 12345
         self.rs = np.random.RandomState(self.randomseed)
         #self.df_results = pd.DataFrame()
@@ -122,8 +124,11 @@ class Network_Model():
         
         # Training/Test indices
         train_idx, test_idx = train_test_split(range(self.n_subjects), test_size= self.test_size, random_state= self.rs, shuffle=True)
+        #Num subjects
+        self.num_train_sub = len(train_idx)
+        self.num_test_sub =  len(test_idx)
         print('Training on %d subjects, Testing on %d subjects' %
-              (len(train_idx), len(test_idx)))
+              (self.num_train_sub, self.num_test_sub))
 
         # Train set
         fmri_data_train = [fmri_network[i] for i in train_idx]  # Training subjects
@@ -186,30 +191,32 @@ netw_model = Network_Model(fmri_filtered, adj_mat, network_file, block_duration)
 df_results = netw_model.get_df_results_networks()
 
 #Output
-df_results['proportion'] = df_results['proportion'].apply(lambda x: x.numpy())
+df_results['proportion'] = df_results['proportion'].apply(lambda x: x.numpy()) #Save as a proportion
 #Save
 df_results.to_pickle('df_network_results.pkl')
 
 #Plot proportions
-def plot_proportion(df_results):
-    'Plot proportion of correctly classified test cases correct across Blocks'
+def plot_network_acc_pcent(df_results):
+    'Plot percentage of correctly classified subjects in each time bucket for all 7 networks'
 
     #Block index
     index  = np.arange(0, len(df_results['proportion'][0]))
 
     #Plot
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 8))
     colors = ["red", "blue" , "green", "orange", "purple", 'black', 'yellow']
     #Plot
     for ind, colorX in enumerate(colors):
-        plt.scatter(index, 100*df_results['proportion'][ind], color = colorX, label = df_results['network'][ind])
+        percantage_correct = 100*((df_results['proportion'][ind])/129) 
+        plt.plot(index, percantage_correct, '-o', color = colorX, label = df_results['network'][ind]) # marker = '*')
     
-    plt.title(f'Network FCN models - proportion correct vs time')
+    plt.title(f'Network FCN models - Pcent of correctly classified subjects in each time bucket')
     plt.xlabel('Block')
-    plt.ylabel('% Subjects correct (109 in test set)')
-    plt.legend()
+    plt.ylabel('% Subjects correct')
+    plt.legend(loc="lower right", framealpha = 1)
     plt.show()
 
-#%% 
-plot_proportion(plot_proportion(df_results))
+#Results ran in Results_plot.ipynb
+plot_network_acc_pcent(df_results)
+
 
