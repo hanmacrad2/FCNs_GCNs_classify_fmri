@@ -87,6 +87,9 @@ class Fmri_dataset(Dataset):
         fmri_data, labels = self.split_fmri_blocks(fmri_idx, self.TR, self.block_duration)        
         tensor_x = torch.FloatTensor(fmri_data)
         tensor_y = torch.stack([torch.LongTensor([labels[ii]]) for ii in range(len(labels))])
+
+        print('tensor x shape = {}'.format(tensor_x.size()))
+        print('tensor y shape = {}'.format(tensor_y.size()))
         
         return tensor_x, tensor_y
 
@@ -176,3 +179,6 @@ def sparse_dense_mat_mul(index, value, m, matrix):
     out = scatter_add(out, row, dim=0, dim_size=m)
 
     return out
+
+def check():
+    print('Woopa')

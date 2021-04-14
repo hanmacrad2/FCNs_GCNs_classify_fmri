@@ -119,10 +119,11 @@ def test(model, device, test_loader, n_labels, loss_func):
     print('Test Loss {:4f} | Acc {:4f}'.format(test_loss,test_acc))
     return test_loss, test_acc, confusion_matrix, predictions, target_classes, prop_equal, count
 
-def model_fit_evaluate(model, device,train_loader, test_loader, n_labels, optimizer,loss_func,num_epochs=100):
+def model_fit_evaluate(model, device, train_loader, test_loader, n_labels, optimizer, loss_func, num_epochs=100):
     best_acc = 0 
     best_confusion_matrix = 0; best_count = 0
     best_predictions = 0; best_target_classes = 0
+    print('n_labels = {}'.format(n_labels))
     best_prop = torch.zeros([n_labels], dtype=torch.int32)
     model_history={}
     model_history['train_loss']=[]; model_history['train_acc']=[];
@@ -142,10 +143,8 @@ def model_fit_evaluate(model, device,train_loader, test_loader, n_labels, optimi
             best_prop = prop_equal; best_count = count
             print("Model updated: Best-Acc = {:4f}".format(best_acc))
 
+    #Performance
     print("Best Testing accuarcy:",best_acc)
-
-    print('\n Confusion Matrix:')
-
     plot_history(model_history)
    
     return best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count
