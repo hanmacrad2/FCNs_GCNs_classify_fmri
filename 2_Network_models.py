@@ -25,6 +25,7 @@ import torch
 from models import *
 from util_funcs import *
 print('Start')
+check()
 
 # ****************************************
 # Data
@@ -40,6 +41,7 @@ def filter_fmri(fmri, standardize):
     'filter fmri signal'
 
     # fmri
+    TR = 2.47
     fmri_filtered = []
     for subj in np.arange(0, fmri.shape[0]):
         fmri_subj = fmri[subj]
@@ -76,11 +78,11 @@ class Network_Model():
         self.n_subjects = fmri.shape[0]
         self.block_duration = block_duration  # 8 #16 #6 8 -Factor of 192
         self.total_time = fmri.shape[1]
-        self.n_blocks = total_time // block_duration
-        self.n_labels = n_blocks
+        self.n_blocks = self.total_time // block_duration
+        self.n_labels = self.n_blocks
 
         # Model params
-        self.model_repeats = 10
+        self.n_model_repeats = 10
         self.device = torch.device("cpu")
         self.params = {'batch_size': 1,
                        'shuffle': True,
@@ -105,7 +107,7 @@ class Network_Model():
 
     def get_network_fmri(self, networkX):
 
-        indx_netw = self.df_network.index[df["network"] == networkX].tolist()
+        indx_netw = self.df_network.index[self.df_network["network"] == networkX].tolist()
         fmri_network = self.fmri[:, :, indx_netw]
         print(f'{networkX} network fmri shape = {fmri_network.shape}')
 
@@ -167,36 +169,6 @@ class Network_Model():
         df_results['pcent'] = df_results['proportion'].apply(lambda x: 100*(x/self.num_test_sub))
 
         return df_results
-    
-    def get_network_pcent(self, dict_netw_results, n_repeat):
-
-        #Setup
-        #list_acc = []; list_prop = []
-        df_network = self.create_network_data()
-        #df_results = pd.DataFrame()
-        #dict_netw_results = {}
-
-        for networkX in self.list_networks:
-            print(f'Network = {networkX}')
-            fmri_networkX, n_regions = self.get_network_fmri(networkX)  # fmri or self.fmri??
-            best_acc, best_prop = self.run_model(
-                fmri_networkX, n_regions)
-            
-            #Append percentage correct for each network
-            dict_netw_results[networkX] = {n_repeat: 100*(best_prop/self.num_test_sub)}
-            
-            #list_acc.append(best_acc)
-            #list_prop.append(best_prop)
-
-        # Dictionary
-        #dict_netw_results['network'] = self.list_networks
-        #dict_netw_results['accuracy'] = list_acc
-        #dict_netw_results['proportion'] = np.array(list_prop)
-        #Format output
-        #dict_netw_results['pcent'] = 100*(dict_netw_results/self.num_test_sub)
-
-        return dict_netw_results
-
 
     def run_model(self, fmri_networkX, n_regions):
 
@@ -217,38 +189,58 @@ class Network_Model():
             model, self.device, train_loader, test_loader, self.n_labels, optimizer, loss_func, num_epochs)
 
         return best_acc, best_prop
+
     
-    def repeat_std(self):
-        'Repeat model results + get std across networks'
+    def get_stats_network_results(self, dict_netw_results):
+        'Aggregate mean stats across time points for a number of repitions'
 
-        #Iteration #1
-        repeat_num = 1
-        dict_netw_results = {}
-        dict_netw_results = get_network_pcent(dict_netw_results, repeat_num)
-        count_repeats = 1
+        #Params
+        df_results = pd.DataFrame()
+        list_net = []; list_buckets = []; list_mean = []; list_std = []
+        for net in dict_netw_results.keys():
+            #print(net)
+            l = list(iter(dict_netw_results[net].values()))
+            for i in range(len(l[0])):
+                #print(i)
+                list_net.append(net)
+                list_buckets.append(i)
+                row_list = [row[i] for row in l] #get values column-wise
+                #print(row_list)
+                list_mean.append(np.mean(np.array(row_list)))
+                list_std.append(np.std(np.array(row_list)))
+        #Dataframe
+        df_results['network'] = list_net
+        df_results['time_bucket'] = list_buckets
+        df_results['mean_pcent_fcn'] = list_mean
+        df_results['std_pcent_fcn'] = list_std
 
-        #Repeat
-        for i in np.arange(2, self.model_repeats):
-            dict_netw_results = get_network_pcent(dict_netw_results, repeat_num)
-            #dict_temp = get_network_pcent()
-            #Add repeated results
-            #dict_netw_results = {key: value + dict_temp[key] for key, value in dict_netw_results.items()}
-            count_repeats += 1    
+        return df_results
 
-        #Get stats on results 
-        for networkX in self.list_networks:
-            l = list(iter(test_dict.values())) #Values
+    def repeat_model_stats(self):
+        'Repeat model results + get mean + std across networks'
+
+        df_network = self.create_network_data()
+        dict_netw_results = {key: {} for key in self.list_networks}
+
+        #Repeat to get std
+        for i in np.arange(1, self.n_model_repeats):
+            print('Iteration num: {}'.format(i))
+            #Repeat for each network
+            for networkX in self.list_networks:
+                print(f'Network = {networkX}')
+                fmri_networkX, n_regions = self.get_network_fmri(networkX)  # fmri or self.fmri??
+                best_acc, best_prop = self.run_model(
+                    fmri_networkX, n_regions)
+                dict_netw_results[networkX][i] = 100*(best_prop/self.num_test_sub)
+            
+            df_stats_results = self.get_stats_network_results(dict_netw_results)
+
+        return df_stats_results
         
-            d={}                                                                  #final ditionary
-            for i in range(len(l[0])): 
-            row_list = [row[i] for row in l]                     #get values column-wise
-            d['location'+str(i+1)] = sum(row_list)/len(row_list)               #calculate avg
-
-
-
 
 #Network class
 network_file = 'networks_7_parcel_400.txt'
+block_duration = 6
 netw_model = Network_Model(fmri_filtered, network_file, block_duration)
 df_results = netw_model.get_df_results_networks()
 #Save
@@ -277,5 +269,12 @@ def plot_network_acc_pcent(df_results):
 
 #Results ran in Results_plot.ipynb
 plot_network_acc_pcent(df_results)
+
+#II Get mean/Std
+df_model_stats = netw_model.repeat_model_stats()
+df_model_stats.to_pickle('df_model_stats.pkl')
+
+#Plot mean/std + error bars
+
 
 
