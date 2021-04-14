@@ -7,16 +7,7 @@ from sklearn import preprocessing, metrics, manifold
 import warnings
 import matplotlib.pyplot as plt
 import importlib
-from models import *
-from util_funcs import *
-from torch.utils.data import DataLoader
-import torch.optim as optim
-import torch.nn.functional as F
-import torch.nn as nn
-import torch
 import itertools
-from scipy.stats import spearmanr
-from scipy import sparse
 import scipy.io
 import pandas as pd
 import numpy as np
@@ -25,6 +16,14 @@ import time
 import math
 import sys
 import os
+
+from torch.utils.data import DataLoader
+import torch.nn.functional as F
+import torch.nn as nn
+import torch
+
+from models import *
+from util_funcs import *
 print('Start')
 
 # ****************************************
@@ -34,12 +33,6 @@ task_type = 'Movie'
 fmri, subj_list = get_fmri_data(root_pth, task_type)
 print(np.array(fmri).shape)  # (193, 400)
 print(len(subj_list))  # 644 subjects
-
-# Adjacency matrix
-root_pth = '/camcan/schaefer_parc/'
-# Should save this rather then recalculating
-adj_mat = get_rsfmri_adj_matrix(root_pth)
-adj_mat = Adjacency_matrix(adj_mat, n_neighbours=8).get_adj_sp_torch_tensor()
 
 #****************************************************
 # Data preprocessing - filter + normalise fmri
@@ -68,12 +61,11 @@ class Network_Model():
     
     '''Class to run FCN models for x7 network parcellation '''
 
-    def __init__(self, fmri, adj_mat, network_file, block_duration):
+    def __init__(self, fmri, network_file, block_duration):
         super(Network_Model, self).__init__()
 
         # Data
         self.fmri = fmri
-        self.adj_mat = adj_mat
         self.network_file = network_file
         self.list_networks = ['Vis', 'SomMot', 'DorsAttn','VentAttn', 'Limbic', 'Cont', 'Default']
         #self.df_network = self.create_network_data(self.network_file, self.list_networks)
@@ -88,6 +80,7 @@ class Network_Model():
         self.n_labels = n_blocks
 
         # Model params
+        self.model_repeats = 10
         self.device = torch.device("cpu")
         self.params = {'batch_size': 1,
                        'shuffle': True,
@@ -145,6 +138,8 @@ class Network_Model():
 
     def get_df_results_networks(self):
 
+        'Get dataframe of the network results'
+
         #Setup
         list_acc = []; list_prop = []
         df_network = self.create_network_data()
@@ -158,12 +153,50 @@ class Network_Model():
             list_acc.append(best_acc)
             list_prop.append(best_prop)
 
+        #Proportion -> Percentage
+        percantage_correct = 100*(df_results['proportion']/self.num_test_sub)
+
+        self.num_test_sub
         # Dataframe
         df_results['network'] = self.list_networks
         df_results['accuracy'] = list_acc
         df_results['proportion'] = list_prop
 
+        #Format output
+        df_results['proportion'] = df_results['proportion'].apply(lambda x: x.numpy())
+        df_results['pcent'] = df_results['proportion'].apply(lambda x: 100*(x/self.num_test_sub))
+
         return df_results
+    
+    def get_network_pcent(self, dict_netw_results, n_repeat):
+
+        #Setup
+        #list_acc = []; list_prop = []
+        df_network = self.create_network_data()
+        #df_results = pd.DataFrame()
+        #dict_netw_results = {}
+
+        for networkX in self.list_networks:
+            print(f'Network = {networkX}')
+            fmri_networkX, n_regions = self.get_network_fmri(networkX)  # fmri or self.fmri??
+            best_acc, best_prop = self.run_model(
+                fmri_networkX, n_regions)
+            
+            #Append percentage correct for each network
+            dict_netw_results[networkX] = {n_repeat: 100*(best_prop/self.num_test_sub)}
+            
+            #list_acc.append(best_acc)
+            #list_prop.append(best_prop)
+
+        # Dictionary
+        #dict_netw_results['network'] = self.list_networks
+        #dict_netw_results['accuracy'] = list_acc
+        #dict_netw_results['proportion'] = np.array(list_prop)
+        #Format output
+        #dict_netw_results['pcent'] = 100*(dict_netw_results/self.num_test_sub)
+
+        return dict_netw_results
+
 
     def run_model(self, fmri_networkX, n_regions):
 
@@ -181,17 +214,43 @@ class Network_Model():
         num_epochs = 10
 
         best_acc, best_confusion_matrix, best_predictions, best_target_classes, best_prop, best_count = model_fit_evaluate(
-            model, self.adj_mat, self.device, train_loader, test_loader, self.n_labels, optimizer, loss_func, num_epochs)
+            model, self.device, train_loader, test_loader, self.n_labels, optimizer, loss_func, num_epochs)
 
         return best_acc, best_prop
+    
+    def repeat_std(self):
+        'Repeat model results + get std across networks'
+
+        #Iteration #1
+        repeat_num = 1
+        dict_netw_results = {}
+        dict_netw_results = get_network_pcent(dict_netw_results, repeat_num)
+        count_repeats = 1
+
+        #Repeat
+        for i in np.arange(2, self.model_repeats):
+            dict_netw_results = get_network_pcent(dict_netw_results, repeat_num)
+            #dict_temp = get_network_pcent()
+            #Add repeated results
+            #dict_netw_results = {key: value + dict_temp[key] for key, value in dict_netw_results.items()}
+            count_repeats += 1    
+
+        #Get stats on results 
+        for networkX in self.list_networks:
+            l = list(iter(test_dict.values())) #Values
+        
+            d={}                                                                  #final ditionary
+            for i in range(len(l[0])): 
+            row_list = [row[i] for row in l]                     #get values column-wise
+            d['location'+str(i+1)] = sum(row_list)/len(row_list)               #calculate avg
+
+
+
 
 #Network class
 network_file = 'networks_7_parcel_400.txt'
-netw_model = Network_Model(fmri_filtered, adj_mat, network_file, block_duration)
+netw_model = Network_Model(fmri_filtered, network_file, block_duration)
 df_results = netw_model.get_df_results_networks()
-
-#Output
-df_results['proportion'] = df_results['proportion'].apply(lambda x: x.numpy()) #Save as a proportion
 #Save
 df_results.to_pickle('df_network_results.pkl')
 
