@@ -243,27 +243,29 @@ network_file = 'networks_7_parcel_400.txt'
 block_duration = 6
 netw_model = Network_Model(fmri_filtered, network_file, block_duration)
 df_results = netw_model.get_df_results_networks()
+index  = np.arange(0, len(df_results['proportion'][0]))
 #Save
 df_results.to_pickle('df_network_results.pkl')
+df_results = pd.read_pickle('df_network_results.pkl')
 
 #Plot proportions
-def plot_network_acc_pcent(df_results):
-    'Plot percentage of correctly classified subjects in each time bucket for all 7 networks'
+def plot_model_stats(df_results, index): 
 
-    #Block index
-    index  = np.arange(0, len(df_results['proportion'][0]))
-
+    'Plot mean/std of pcentage correct of subjects across time buckets'
     #Plot
     plt.figure(figsize=(10, 8))
+    networks = ['Vis', 'SomMot', 'DorsAttn','VentAttn', 'Limbic', 'Cont', 'Default']
     colors = ["red", "blue" , "green", "orange", "purple", 'black', 'yellow']
-    #Plot
-    for ind, colorX in enumerate(colors):
-        percantage_correct = 100*((df_results['proportion'][ind])/129) 
-        plt.plot(index, percantage_correct, '-o', color = colorX, label = df_results['network'][ind]) # marker = '*')
+
+    for network, color in zip(networks, colors):
+        #Extract df network
+        df_netX = df.loc[df['network'] == network] 
+        print('df_netX.shape() = {}'.format(df_netX.shape()))
+        plt.plot(index, df_results['mean_pcent_fcn'], '-o', yerr='std', color = colorX, label = df_results['network'][ind])
     
-    plt.title(f'Network FCN models - Pcent of correctly classified subjects in each time bucket')
+    plt.title(f'Network FCN models - Mean pcent of correctly classified subjects per time bucket (10 model runs)')
     plt.xlabel('Block')
-    plt.ylabel('% Subjects correct')
+    plt.ylabel('Mean % Subjects correct')
     plt.legend(loc="lower right", framealpha = 1)
     plt.show()
 
@@ -276,5 +278,27 @@ df_model_stats.to_pickle('df_model_stats.pkl')
 
 #Plot mean/std + error bars
 
+def plot_model_stats(df_results, index):
 
+    'Plot mean/std of pcentage correct of subjects across time buckets'
+
+    #Plot
+    plt.figure(figsize=(10, 8))
+    networks = ['Vis', 'SomMot', 'DorsAttn','VentAttn', 'Limbic', 'Cont', 'Default']
+    colors = ["red", "blue" , "green", "orange", "purple", 'black', 'yellow']
+
+    for network, color in zip(networks, colors):
+        #Extract df network
+        df_netX = df.loc[df['network'] == network] 
+        print('df_netX.shape() = {}'.format(df_netX.shape())
+        plt.plot(index, df_results['mean_pcent_fcn'], yerr='std', '-o', color = colorX, label = df_results['network'][ind])
+    
+    plt.title(f'Network FCN models - Mean pcent of correctly classified subjects per time bucket (10 model runs)')
+    plt.xlabel('Block')
+    plt.ylabel('Mean % Subjects correct')
+    plt.legend(loc="lower right", framealpha = 1)
+    plt.show()
+
+#Run (Plotted in Jupyter)
+plot_model_stats(df_results, index)
 
