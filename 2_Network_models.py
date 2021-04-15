@@ -243,6 +243,8 @@ network_file = 'networks_7_parcel_400.txt'
 block_duration = 6
 netw_model = Network_Model(fmri_filtered, network_file, block_duration)
 df_results = netw_model.get_df_results_networks()
+#Redo to see tensor shapes
+df_results2 = netw_model.get_df_results_networks()
 index  = np.arange(0, len(df_results['proportion'][0]))
 #Save
 df_results.to_pickle('df_network_results.pkl')
@@ -276,8 +278,7 @@ plot_network_acc_pcent(df_results)
 df_model_stats = netw_model.repeat_model_stats()
 df_model_stats.to_pickle('df_model_stats.pkl')
 
-#Plot mean/std + error bars
-
+#Plot mean/std + error bars (See jupyter)
 def plot_model_stats(df_results, index):
 
     'Plot mean/std of pcentage correct of subjects across time buckets'
