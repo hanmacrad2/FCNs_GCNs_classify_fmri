@@ -29,7 +29,7 @@ As shown below, the best results were obtained using the FCN model and so the FC
 
 
 #### 2. Network Model parcellation
-This invloved parcellating the fmri data into it's networks - 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal). The FCN model was applied to the fmri data of each parcellated network separately to determine the overall indiviudal, instrinsic predictability of each of the 7 parcellated networks
+This invloved parcellating the fmri data into it's networks - 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal). The FCN model was applied to the fmri data of each parcellated network separately to determine the indiviudal predictive power of each of the 7 parcellated networks across individuals 
 
 ## Results 
 
