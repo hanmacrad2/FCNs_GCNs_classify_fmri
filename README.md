@@ -46,6 +46,9 @@ Main Focus
 
 ## Results 
 
+#### FCN > GCN across all tests
+Show:
+
 The following results for comparing the FCN model to the GCN model 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
@@ -59,8 +62,7 @@ The following results for comparing the FCN model to the GCN model
 | zebra stripes | are neat      |    $1 |
 
 
-#### FCN > GCN across all tests
-Show:
+
 
 #### Separating out network data;
 Visual had the best 
