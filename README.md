@@ -67,8 +67,10 @@ The model training was repeated for 10 runs so that error bars of the standard d
 - get_rsfmri_adj_matrix(root_pth): Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
     
 #### Models
-- model_fcn_gcn: 
-- model_fcn: Fully Connected Neural Network 
+- __model_fcn__:
+Contains the code for the Fully Connected Neural Network. THe FCN architecture involved  two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
+The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs x Timepoints
+- __model_fcn_gcn__: Contains the code for the Fully Connected Neural Network and Graphical Neural Network models. 
 
 ## Slides
 - Intro
@@ -84,7 +86,7 @@ The model training was repeated for 10 runs so that error bars of the standard d
 pip install -r requirements.txt 
 ```
 
-#### Insallation 
+#### Installation 
 Open a terminal and type:
 
 ```
