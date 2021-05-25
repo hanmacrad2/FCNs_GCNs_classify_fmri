@@ -11,7 +11,7 @@ seaborn
 sklearn
 torch
 torchvision
-torch-cluster
-torch-geometric
-torch-scatter
-torch-sparse
+#torch-cluster
+#torch-geometric
+#torch-scatter
+#torch-sparse
