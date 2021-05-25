@@ -80,12 +80,16 @@ The model training was repeated for 10 runs so that error bars of the standard d
 - The package requirements are written in the file requirements.text
 - These can me installed by typing the following in your terminal;
 
+```
 pip install -r requirements.txt 
+```
 
 #### Insallation 
 Open a terminal and type:
-git clone https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri.git
 
+```
+git clone https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri.git
+```
 
 
 
