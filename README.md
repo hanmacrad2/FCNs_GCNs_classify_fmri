@@ -1,5 +1,5 @@
 ## Fully Connected & Graphical Neural Networks to classify fmri movie data 
-Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) to fmri movie data. Brain decoding
+> Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) to fmri movie data. Brain decoding
 
 - [Overview](#overview)
 - [Introduction](#Introduction)
@@ -7,11 +7,6 @@ Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional 
 - [Code](#Code)
 - [Using the Resource](#Code)
 - [References](#Code)
- 
-
-> This is a fixture to test heading levels
-
-<!-- toc -->
 
 ## Overview
 
