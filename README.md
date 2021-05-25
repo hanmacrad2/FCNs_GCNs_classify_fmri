@@ -1,10 +1,11 @@
+## Fully Connected Neural Networks & Graphical Neural Networks to classify fmri movie data 
 Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) to fmri movie data
 
 [Overview](#overview)
   * [Sub-heading](#sub-heading)
     + [Sub-sub-heading](#sub-sub-heading)]
  
- # Heading levels
+
 
 > This is a fixture to test heading levels
 
