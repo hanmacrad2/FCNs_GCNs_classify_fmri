@@ -48,8 +48,8 @@ Main Focus
 
 The following results for comparing the FCN model to the GCN model 
 
-Inline-style: 
-![alt text](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG)
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="200" />
+
 
 
 | Tables        | Are           | Cool  |
