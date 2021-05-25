@@ -2,6 +2,7 @@
 Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) to fmri movie data
 
 [Overview](#overview)
+[Code](#overview)
   * [Sub-heading](#sub-heading)
     + [Sub-sub-heading](#sub-sub-heading)]
  
@@ -17,20 +18,26 @@ Overview
 FCNs and GCNs (1st order, 5th order, 8th order) were used to classify time blocks of fmri data across subjects.
 The fmri data came from the Camcan study (https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie
 
-Code
+## Code
 
-Notebooks - Load data, results presented
-Scripts -
-Util funcs - fmri data
-Model - model
+#### Notebooks
+- Load data, results presented
+#### Scripts
+#### Util funcs
+- fmri data
+#### Model
+- model
 
-Results 
-FCN > GCN across all tests
+## Results 
+
+#### FCN > GCN across all tests
 Show:
 
-Separating out network data;
+#### Separating out network data;
 Visual had the best 
 
-Prequisites
+## Prequisites
 
-Install
+## Install
+
+## References 
