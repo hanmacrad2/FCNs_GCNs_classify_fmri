@@ -20,9 +20,9 @@ The fmri data came from the Camcan study (https://www.cam-can.org/) and was reco
 
 ## Code
 
-#### Notebooks
+### Notebooks
 - Load data, results presented
-#### Scripts
+### Scripts
 #### Util funcs
 - fmri data
 #### Model
