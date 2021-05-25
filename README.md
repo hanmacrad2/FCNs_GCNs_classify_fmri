@@ -62,11 +62,12 @@ The model training was repeated for 10 runs so that error bars of the standard d
 
 #### Util funcs
 - This script contains various utility functions related to loading the fmri data
-- get_fmri_data(root_pth, task_type) - Loads the fmri data from the root path, where task_type = (Movie, Rest), pertaitning to the fmri movie data or resting state data
-- The lass Fmri_dataset(Dataset) which includes the function split_fmri_blocks(); - Splits the fmri data into equal sized blocks of size num_blocks x block_duration x ROIs
-
+- get_fmri_data(root_pth, task_type) - Loads the fmri data from the root path, where task_type = (Movie, Rest), pertaining to the fmri movie data or resting state data
+- The class Fmri_dataset(Dataset) which includes the function split_fmri_blocks(); - Splits the fmri data into equal sized blocks of size num_blocks x block_duration x ROIs
+- get_rsfmri_adj_matrix(root_pth): Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
+    
 #### Models
-- model_fcn_gcn
+- model_fcn_gcn: 
 - model_fcn: Fully Connected Neural Network 
 
 ## Slides
