@@ -22,34 +22,23 @@ It transpired that the FCNs yielded a better predictive performance. FCNs were t
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants.
 
 Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. The decoding model was evaluated on the fmri recorded from 644 participants from the camcan study recorded while they watched a 7 minute Hitchcock film.
-A number of Using a 10s window of fMRI response, the 21 cognitive states were identified with a test accuracy of 90% (chance level 4.8%). Performance remained good when using a 6s window (82%).
+A number of time windows for fmri classification were used including 6 blocks x TR, 8 blocks x TR and 16 blocks x TR, whereby TR is the repetition time (time it takes to scan all slices) and equal to 2.47 secs in this instance. 
 
-Main Focus 
-- I. FCNs vs GCNs
-- II. FCNs - Network parcellation
+As mentioned above, the main focus of the analyses was;
 
-## Code
+1. Comparison of FCNs vs GCNs
+- Comparing the classification performance of the FCNs with that of the GCNs to determine which is the optimal classifier in this context 
 
-#### I. FCNs vs GCNs
-- As in 1_FCNs_vs_GCNs_fmri_classification
+2. Network Model parcellation
+- Parcellating the fmri data into it's networks - 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal) 
 
-#### II. FCN Network Parcellation
-
-- As in 2_Network_Models_FCN
-
-#### Util funcs
-- fmri data
-- 
-#### Models
-- model_fcn_gcn
-- model_fcn
+As shown below, the best results were obtained using the FCN model. 
 
 ## Results 
 
 #### FCN > GCN across all tests
-Show:
 
-The following results for comparing the FCN model to the GCN model 
+The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
@@ -67,6 +56,21 @@ The following results for comparing the FCN model to the GCN model
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/Results/network-model-stats.png" width="600" />
 
+## Code
+
+#### I. FCNs vs GCNs
+- As in 1_FCNs_vs_GCNs_fmri_classification
+
+#### II. FCN Network Parcellation
+
+- As in 2_Network_Models_FCN
+
+#### Util funcs
+- fmri data
+
+#### Models
+- model_fcn_gcn
+- model_fcn
 
 ## Slides
 - Intro
@@ -88,3 +92,10 @@ git clone https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri.git
 
 
 ## References 
+
+Yeo, B. T., Krienen, F. M., Sepulcre, J., Sabuncu, M. R., Lashkari, D., Hollinshead, M., ... & Buckner, R. L. (2011). The organization of the human cerebral cortex estimated by intrinsic functional connectivity. Journal of neurophysiology.
+
+Zhang, Y., Tetrel, L., Thirion, B., & Bellec, P. (2021). Functional annotation of human cognitive states using deep graph convolution. NeuroImage, 231, 117847.
+
+Zhang, Y., & Bellec, P. (2019). Functional annotation of human cognitive states using graph convolution networks.
+
