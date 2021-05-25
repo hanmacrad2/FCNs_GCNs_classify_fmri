@@ -24,12 +24,12 @@ A central goal in neuroscience is to understand the mechanisms in the brain resp
 A number of time windows for fmri classification were used including 6 blocks x TR, 8 blocks x TR and 16 blocks x TR, whereby TR is the repetition time (time it takes to scan all slices) and equal to 2.47 secs in this instance. As mentioned above, the main focus of the analyses was;
 
 #### 1. Comparison of FCNs vs GCNs
--The classification performance of the FCNs was compared to that of the GCNs to determine which is the optimal classifier in the context of decoding fmri data. 
+The classification performance of the FCNs was compared to that of the GCNs to determine which is the optimal classifier in the context of decoding fmri data. 
 As shown below, the best results were obtained using the FCN model and so the FCN was used for further analysis as below. 
 
 
 #### 2. Network Model parcellation
-- This invloved parcellating the fmri data into it's networks - 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal). The FCN model was applied to the fmri data of each parcellated network separately to determine the overall indiviudal, instrinsic predictability of each of the 7 parcellated networks
+This invloved parcellating the fmri data into it's networks - 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal). The FCN model was applied to the fmri data of each parcellated network separately to determine the overall indiviudal, instrinsic predictability of each of the 7 parcellated networks
 
 ## Results 
 
@@ -54,19 +54,20 @@ The model training was repeated for 10 runs so that error bars of the standard d
 ## Code
 
 #### I. FCNs vs GCNs
-- As in 1_FCNs_vs_GCNs_fmri_classification
+- As in the folder 1_FCNs_vs_GCNs_fmri_classification
 
 #### II. FCN Network Parcellation
 
-- As in 2_Network_Models_FCN
+- As in the folder 2_Network_Models_FCN
 
 #### Util funcs
-- fmri data
-- **
+- This script contains various utility functions related to loading the fmri data
+- get_fmri_data(root_pth, task_type) - Loads the fmri data from the root path, where task_type = (Movie, Rest), pertaitning to the fmri movie data or resting state data
+- The lass Fmri_dataset(Dataset) which includes the function split_fmri_blocks(); - Splits the fmri data into equal sized blocks of size num_blocks x block_duration x ROIs
 
 #### Models
 - model_fcn_gcn
-- model_fcn
+- model_fcn: Fully Connected Neural Network 
 
 ## Slides
 - Intro
