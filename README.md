@@ -1,4 +1,4 @@
-## Fully Connected Neural Networks & Graphical Neural Networks to classify fmri movie data 
+## Fully Connected & Graphical Neural Networks to classify fmri movie data 
 Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) to fmri movie data
 
 [Overview](#overview)
@@ -19,7 +19,17 @@ The fmri data came from the Camcan study (https://www.cam-can.org/) and was reco
 
 Code
 
+Notebooks - Load data, results presented
+Scripts -
+Util funcs - fmri data
+Model - model
+
 Results 
+FCN > GCN across all tests
+Show:
+
+Separating out network data;
+Visual had the best 
 
 Prequisites
 
