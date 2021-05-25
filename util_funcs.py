@@ -88,8 +88,8 @@ class Fmri_dataset(Dataset):
         tensor_x = torch.FloatTensor(fmri_data)
         tensor_y = torch.stack([torch.LongTensor([labels[ii]]) for ii in range(len(labels))])
 
-        print('tensor x shape = {}'.format(tensor_x.size()))
-        print('tensor y shape = {}'.format(tensor_y.size()))
+        print('TENSOR x shape = {}'.format(tensor_x.size()))
+        print('TENSOR y shape = {}'.format(tensor_y.size()))
         
         return tensor_x, tensor_y
 
@@ -134,6 +134,9 @@ class Fmri_dataset(Dataset):
             
         #Array of data
         fmri_data = np.array(fmri_data)
+
+        print('fmri data format shape = {}'.format(fmri_data))
+        print('labels = {}'.format(labels.shape))
 
         return fmri_data, labels
 

@@ -271,8 +271,9 @@ def plot_model_stats(df_results, index):
     plt.legend(loc="lower right", framealpha = 1)
     plt.show()
 
-#Results ran in Results_plot.ipynb
-plot_network_acc_pcent(df_results)
+#**************************************************
+#Plot of results
+#Note - Plots of results ran in Results_plot.ipynb
 
 #II Get mean/Std
 df_model_stats = netw_model.repeat_model_stats()
