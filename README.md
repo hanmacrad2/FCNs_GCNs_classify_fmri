@@ -15,7 +15,7 @@ Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional 
 ## Overview
 
 FCNs and GCNs (1st order, 5th order, 8th order) were used to classify time blocks of fmri data across subjects.
-The fmri data came from the Camcan study (https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie
+The fmri data came from the [Camcan study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie
 It transpired that the FCNs yielded a better predictive performance. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks (based on the Scaehfer parcellation) and determining the classification power of each network data separately. 
 
 ## Introduction 
@@ -45,6 +45,19 @@ Main Focus
 - model_fcn
 
 ## Results 
+
+The following results for comparing the FCN model to the GCN model 
+
+Inline-style: 
+![alt text](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG)
+
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
 
 #### FCN > GCN across all tests
 Show:
