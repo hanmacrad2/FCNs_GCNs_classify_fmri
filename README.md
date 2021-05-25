@@ -18,8 +18,8 @@ Overview
 FCNs and GCNs (1st order, 5th order, 8th order) were used to classify time blocks of fmri data across subjects.
 The fmri data came from the Camcan study (https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie
 
-I. FCNs vs GCNs
-II. FCNs - Network parcellation
+- I. FCNs vs GCNs
+- II. FCNs - Network parcellation
 
 ## Code
 
@@ -40,8 +40,11 @@ Show:
 #### Separating out network data;
 Visual had the best 
 
-## Prequisites
+## Slides
+
 
 ## Install
+### Prequisites
+
 
 ## References 
