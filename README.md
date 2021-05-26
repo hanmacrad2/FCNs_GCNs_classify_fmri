@@ -36,7 +36,7 @@ The following accuracy results where obtained for the FCN and GCN models when us
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
 
-#### Separating out network data;
+#### Network parcelleated results - Visual is best;
 The Visual Network had the highest classification accuracy across subjects. That is, the model was able to best detect an underlying temporal trend across the fmri data pertaining to the Visual network. It had a classification accuracy of 71.4% as shown in the table below. This was followed by the Somatomotor Network which has a test accuracy of 62.0%. In the first plot, the model accuracy for each of the different time blocks is shown, to get an idea of how the classifiers were performing across the duration of the movie. 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/Results/network_model_results_table.PNG" width="400" />
