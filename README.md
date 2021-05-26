@@ -17,15 +17,12 @@ The fmri data came from the [Cam-CAN study](https://www.cam-can.org/) and was re
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
 
 #### Data
-The decoding model was evaluated on the fmri of 644 participants from the Cam-CAN study.
+The decoding model was evaluated on the fmri of 644 participants from the Cam-CAN study. Inline-style: 
+![alt text] (<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/camcan_study.png" width="300" />)
 
-<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/camcan_study.png" width="300" />
+The fmri data was recorded while the participants watched a 7 minute Hitchcock film. THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
 
-The fmri data was recorded while the participants watched a 7 minute Hitchcock film.
-
-<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/hitchcock_movie.jpg" width="300" />
-
-THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/hitchcock_movie.jpg" width="100" />
 
 #### Objectives 
 As mentioned above, the main focus of the analyses was;
