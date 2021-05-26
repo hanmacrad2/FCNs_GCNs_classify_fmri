@@ -72,8 +72,8 @@ This script contains various utility functions related to loading the fmri data
     - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs x Timepoints
     - THe FCN architecture involved  two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
 
-- ```model_fcn_gcn.py```
-    - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder dfa)
+####  ```model_fcn_gcn.py```
+- Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
 
 ## Slides
 - Intro
