@@ -6,18 +6,18 @@
   * [Data](#data)
   * [Objectives](#Objectives)
 - [Results](#Results)
-  * [FCN > GCN across all tests](#FCN > GCN across all tests)
-  * [Network FCNs - Visual is best](#Network FCNs - Visual is best)
+  * FCN > GCN across all tests
+  * Network FCNs - Visual is best
 - [Code](#Code)
   * [1_FCNs_vs_GCNs_fmri_classification](#1_FCNs_vs_GCNs_fmri_classification)
   * [2_Network_Models_FCN](#2_Network_Models_FCN)
   * [util_funcs.py](#util_funcs.py)
-  * models_fcn.py(#data)
-  * models_fcn_gcn.py(#data)
+  * models_fcn.py(#models_fcn.py)
+  * models_fcn_gcn.py(#models_fcn_gcn.py)
 - [Using the Resource](#Code)
-  * Pre-requisites(#data)
-  * Installation(#data)
-- [References](#Code)
+  * [Pre-requisites](#Pre-requisites)
+  * Installation(#Installation)
+- [References](#References)
 
 ## Overview
 
@@ -136,13 +136,6 @@ This script contains various utility functions related to loading the fmri data
 - Network parcellation
 
 ## Using the Resource
-#### Prequisites
-- The package requirements are written in the file requirements.text
-- These can me installed by typing the following in your terminal;
-
-```
-pip install -r requirements.txt 
-```
 
 #### Installation 
 Open a terminal and type:
@@ -151,6 +144,18 @@ Open a terminal and type:
 git clone https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri.git
 ```
 
+#### Prequisites
+- The package requirements are written in the file requirements.text
+- These can me installed by typing the following in your terminal;
+
+```
+pip install -r requirements.txt 
+```
+- Note for 'pytorch'
+  - python version 3.8 for torch install 
+  - install torch with specific cpu and do same for scatter 
+
+```pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html```
 
 
 ## References 
