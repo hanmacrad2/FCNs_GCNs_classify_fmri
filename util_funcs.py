@@ -58,6 +58,12 @@ def get_rsfmri_adj_matrix(root_pth):
 
 class Fmri_dataset(Dataset):
     
+    '''Input: the fmri_dataset (either the train or test set) and the specified block duration which it uses to split the fmri into blocks
+    - The class includes the method split_fmri_blocks() which;
+        - Splits the fmri data into blocks of size block_duration, resulting in num_blocks  blocks i.e num_blocks = total_time/block_duration. For example if block duration = 8, then number of blocks = 192/8 = 24 blocks
+Thus the fmri is returned split into equal sized blocks of size num_blocks x block_duration x ROIs
+    
+    '''
     def __init__(self, fmri_data_matrix, block_duration): #transform=False
         
         super(Fmri_dataset, self).__init__()
