@@ -90,9 +90,9 @@ This script contains various utility functions related to loading the fmri data
 ####  ```model_fcn_gcn.py```
 - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
     - The class ``` ChebNet(block_duration, filters, n_labels, gcn_layers = num_layers, dropout=0.25,gcn_flag=True)``` was used to create the GCN models. Note that 
-        - filters = 32
-        - gcn_layers = num_layers = 2
-        - nlabels = Number of blocks (e.g 24 if block duration = 8, then 192/8 = 24)
+        - ```filters``` = 32
+        - ```gcn_layers``` = ```num_layers``` = 2
+        - ```nlabels``` = Number of blocks (e.g 24 if block duration = 8, then 192/8 = 24)
 
 ## Slides
 - Intro
