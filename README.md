@@ -9,7 +9,7 @@
   * FCN > GCN across all tests
   * Network FCNs - Visual is best
 - [Code](#Code)
-  * 1_FCNs_vs_GCNs_fmri_classification
+  * ``` 1_FCNs_vs_GCNs_fmri_classification```
   * 2_Network_Models_FCN
   * util_funcs.py
   * models_fcn.py
@@ -47,6 +47,7 @@ As shown below, the best results were obtained using the FCN model, achieving a 
 #### 2. Network Model parcellation
 This invloved parcellating the fmri data into distinctive cognitive networks, specifically 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal) from this [Network Parcellation File](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt). The 7 networks of cognitive function included the 
 Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Control Networks. The FCN model was applied to the fmri data of each parcellated network separately to determine the indiviudal predictive power of each of the 7 parcellated networks across all individuals fmri.
+
 ## Results 
 
 #### FCN > GCN across all tests
