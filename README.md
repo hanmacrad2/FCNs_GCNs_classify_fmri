@@ -25,13 +25,13 @@ As shown below, the best results were obtained using the FCN model, achieving a 
 
 #### 2. Network Model parcellation
 This invloved parcellating the fmri data into distinctive cognitive networks, specifically 400 parcel parcellation matched to [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal). The 7 networks of cognitive function included the 
-Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Control Networks. The FCN model was applied to the fmri data of each parcellated network separately to determine the indiviudal predictive power of each of the 7 parcellated networks across individuals which included the 
+Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Control Networks. The FCN model was applied to the fmri data of each parcellated network separately to determine the indiviudal predictive power of each of the 7 parcellated networks across all individuals fmri.
 
 ## Results 
 
 #### FCN > GCN across all tests
 
-The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model
+The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model. 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
@@ -49,30 +49,31 @@ The model training was repeated for 10 runs so that error bars of the standard d
 
 ## Code
 
-#### I. FCNs vs GCNs
-- As in the folder 1_FCNs_vs_GCNs_fmri_classification
+#### ``` 1_FCNs_vs_GCNs_fmri_classification```
+- This folder contains the code for evaluating the FCNs and GCNs on the fmri data. The models are trained on various block durations and their performance metrics compared
 
-#### II. FCN Network Parcellation
-
-- As in the folder 2_Network_Models_FCN
+#### ``` 2_Network_Models_FCN``` 
+- This folder contains the code for parcellating the fmri data into distinctive cognitive networks. The FCN model was then applied to the fmri data of each parcellated network separately
 
 #### ```util_funcs.py```
 This script contains various utility functions related to loading the fmri data 
-- ```get_fmri_data(root_pth, task_type)```: Loads the fmri data from the root path, where ```task_type = (Movie, Rest)```, pertaining to the fmri movie data or resting state data
-- The class ```Fmri_dataset(Dataset)``` which includes the function ```split_fmri_blocks()``` which; 
+- ```get_fmri_data(root_pth, task_type)```
+    - Loads the fmri data from the root path, where ```task_type = (Movie, Rest)```, pertaining to the fmri movie data or resting state data
+    - The class ```Fmri_dataset(Dataset)``` which includes the function ```split_fmri_blocks()``` which; 
     - Splits the fmri data into blocks of size block_duration, resulting in num_blocks blocks (num_blocks = total_time/block_duration)
     - Thus the fmri is returned split into equal sized blocks of size num_blocks x block_duration x ROIs
-- ```get_rsfmri_adj_matrix(root_pth)```: Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
+- ```get_rsfmri_adj_matrix(root_pth)```
+    - Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
   
 
 #### Models
-- ```model_fcn```:
+#### ```models_fcn.py```
     - Contains the code for the Fully Connected Neural Network. 
     - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs x Timepoints
     - THe FCN architecture involved  two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
 
-- ```model_fcn_gcn```
-    - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models. 
+- ```model_fcn_gcn.py```
+    - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder dfa)
 
 ## Slides
 - Intro
