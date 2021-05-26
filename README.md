@@ -10,9 +10,9 @@
 
 ## Overview
 
-FCNs and GCNs (1st order, 5th order, 8th order) developed using pytorch were used to classify time blocks of fmri data across subjects.
-The fmri data came from the [Camcan study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie
-It transpired that the FCNs yielded a better predictive performance. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal and determining the classification power of each network separately. 
+FCNs and GCNs (1st order, 5th order, 8th order), developed using pytorch, were used to classify time blocks of fmri data across subjects.
+The fmri data came from the [Camcan study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints, for example, the 192 timepoints would be split into 26 x 8 blocks for a block duration of 8. THe FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  
+It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal) and determining the classification power of each network separately. 
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
@@ -20,7 +20,7 @@ The decoding model was evaluated on the fmri recorded from 644 participants from
 A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. As mentioned above, the main focus of the analyses was;
 
 #### 1. Comparison of FCNs vs GCNs
-The classification performance of the FCNs was compared to that of the GCNs to determine which was the optimal classifier in the context of decoding fmri data. 
+The classification performance of the FCNs was compared to that of the GCNs to determine which was the optimal classifier in the context of decoding fmri data. The fmri data was split into equaly sized blocks of timepoints, for example, the 192 timepoints would be split into 26 x 8 blocks for a block duration of 8. THe FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  
 As shown below, the best results were obtained using the FCN model, achieving a mean accuracy of 90.7%, and so the FCN was used for further analysis as below. 
 
 
