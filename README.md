@@ -74,9 +74,22 @@ This script contains various utility functions related to loading the fmri data
 - Contains the code for the Fully Connected Neural Network. 
     - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension;
         - Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs 
-    -  The FCN model has input layer with input dimension ```input_dim```, equal to the number of ROIs (400) and output to the input layer being of size ```hidden_dim```, chosen as 128 in this instance
+    -  The FCN model has input layer created using the pytorch method ```nn.Linear``` of;
+        - input size ```input_dim```, equal to the number of ROIs (400)
+        - output size ```hidden_dim```, chosen as 128 in this instance
+        - A ```ReLU``` activation layer is added
+    - Followed by
+        - A ```Dropout``` layer with ```self.dropout = 0.2``` 
     -  The pytorch method ```nn.Sequential``` is then used to create the hidden and final layer.
-    -  THe FCN architecture involved two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
+    -  The first hidden layer has
+        - Input of size ```hidden_dim```
+        - Output of size ```hidden_dim/4```
+        - A ```ReLU``` activation layer is added
+    - Followed by
+        - A ```Dropout``` layer with ```dropout = 0.5``` 
+    - The final output layer then has
+        - Input size ```hidden_dim/4```
+        - Output size ```self.output_dim``` which is equal to the number of blocks in the fmri that need to be classified 
 
 ####  ```model_fcn_gcn.py```
 - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
