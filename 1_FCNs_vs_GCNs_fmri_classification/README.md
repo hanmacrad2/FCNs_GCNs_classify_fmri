@@ -10,8 +10,9 @@ The decoding model was evaluated on the fmri recorded from 644 participants from
 The classification performance of the FCNs was compared to that of the GCNs to determine which was the optimal classifier in the context of decoding fmri data. The fmri data was split into equaly sized blocks of timepoints, for example, the 192 timepoints would be split into 26 x 8 blocks for a block duration of 8. THe FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks. It transpired that the FCNs yielded a better predictive performance than the GCNs, achieving a mean accuracy of 90.7%, and so the FCNs were therefore used in the second part of the study for further analysis. 
 
 ## Code 
-The main results were ran in the notebook 1_fmri_gcns_main.ipynb. The class methods and functionality are described in the read me in [FCNs_GCNs_classify_fmri](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/README.md%20%60%60%60)
-The models were run for block durations of 6, 8 and 16 to both filtered and filtered + normalised fmri data. 
+
+#### ```1_fmri_gcns_main.ipynb```
+The main results were ran in this jupyter notebook. The models were run for block durations of 6, 8 and 16 to both filtered and filtered + normalised fmri data. The class methods and functionality are described in the ```REAMDME``` in [FCNs_GCNs_classify_fmri](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/README.md%20%60%60%60)
 
 ## Results
 The results obtained are as in the table below;
