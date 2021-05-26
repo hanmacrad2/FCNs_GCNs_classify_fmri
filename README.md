@@ -11,8 +11,7 @@
 ## Overview
 
 FCNs and GCNs (1st order, 5th order, 8th order), developed using pytorch, were used to classify time blocks of fmri data across subjects.
-The fmri data came from the [Camcan study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints, for example, the 192 timepoints would be split into 26 x 8 blocks for a block duration of 8. THe FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  
-It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal) and determining the classification power of each network separately. 
+The fmri data came from the [Camcan study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints, for example, the 192 timepoints would be split into 26 x 8 blocks for a block duration of 8. THe FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal) and determining the classification power of each network separately. 
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
@@ -63,7 +62,7 @@ This script contains various utility functions related to loading the fmri data
 - The class ```Fmri_dataset(fmri_dataset, block_duration)``` which;
     - Has as input the fmri_dataset (either the train or test set) and the specified block duration which it uses to split the fmri into blocks
     - THe class includes the method ```split_fmri_blocks()``` which; 
-    - Splits the fmri data into blocks of size block_duration, resulting in num_blocks blocks (num_blocks = total_time/block_duration)
+    - Splits the fmri data into blocks of size block_duration, resulting in num_blocks blocks i.e num_blocks = total_time/block_duration. For example if block duration = 8, then number of blocks = 192/8 = 24 blocks 
     - Thus the fmri is returned split into equal sized blocks of size num_blocks x block_duration x ROIs
 - ```get_rsfmri_adj_matrix(root_pth)```
     - Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
@@ -90,6 +89,10 @@ This script contains various utility functions related to loading the fmri data
 
 ####  ```model_fcn_gcn.py```
 - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
+    - The class ``` ChebNet(block_duration, filters, n_labels, gcn_layers = num_layers, dropout=0.25,gcn_flag=True)``` was used to create the GCN models. Note that 
+        - filters = 32
+        - gcn_layers = num_layers = 2
+        - nlabels = Number of blocks (e.g 24 if block duration = 8, then 192/8 = 24)
 
 ## Slides
 - Intro
