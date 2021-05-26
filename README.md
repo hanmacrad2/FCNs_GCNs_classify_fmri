@@ -56,22 +56,23 @@ The model training was repeated for 10 runs so that error bars of the standard d
 
 - As in the folder 2_Network_Models_FCN
 
-#### Util funcs
-- This script contains various utility functions related to loading the fmri data
-- * ```get_fmri_data(root_pth, task_type)```: Loads the fmri data from the root path, where task_type = (Movie, Rest), pertaining to the fmri movie data or resting state data
-- The class Fmri_dataset(Dataset) which includes the function split_fmri_blocks() which; 
+#### ```util_funcs.py```
+This script contains various utility functions related to loading the fmri data 
+- ```get_fmri_data(root_pth, task_type)```: Loads the fmri data from the root path, where ```task_type = (Movie, Rest)```, pertaining to the fmri movie data or resting state data
+- The class ```Fmri_dataset(Dataset)``` which includes the function ```split_fmri_blocks()``` which; 
     - Splits the fmri data into blocks of size block_duration, resulting in num_blocks blocks (num_blocks = total_time/block_duration)
     - Thus the fmri is returned split into equal sized blocks of size num_blocks x block_duration x ROIs
-- get_rsfmri_adj_matrix(root_pth): Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
-    
-    
-
+- ```get_rsfmri_adj_matrix(root_pth)```: Gets the resting state data & returns the  adjacency matrix required for the graphical neural network models
+  
 
 #### Models
-- __model_fcn__:
-Contains the code for the Fully Connected Neural Network. THe FCN architecture involved  two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
-The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs x Timepoints
-- __model_fcn_gcn__: Contains the code for the Fully Connected Neural Network and Graphical Neural Network models. 
+- ```model_fcn```:
+    - Contains the code for the Fully Connected Neural Network. 
+    - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs x Timepoints
+    - THe FCN architecture involved  two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
+
+- ```model_fcn_gcn```
+    - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models. 
 
 ## Slides
 - Intro
