@@ -14,7 +14,7 @@
   * [util_funcs.py](#util_funcs.py)
   * [models_fcn.py](#models_fcn.py)
   * [models_fcn_gcn.py](#models_fcn_gcn.py)
-- [Using_the_Resource](#Using the Resource)
+- [Using_the_Resource](#Using_the_Resource)
   * [Installation](#Installation)
   * [Pre-requisites](#Pre-requisites)
 - [References](#References)
@@ -135,7 +135,7 @@ This script contains various utility functions related to loading the fmri data
 - FCNs vs GCNs
 - Network parcellation
 
-## Using the Resource
+## Using_the_Resource
 
 #### Installation 
 Open a terminal and type:
