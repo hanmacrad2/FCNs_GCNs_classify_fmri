@@ -14,7 +14,7 @@
   * [util_funcs.py](#util_funcs.py)
   * [models_fcn.py](#models_fcn.py)
   * [models_fcn_gcn.py](#models_fcn_gcn.py)
-- [Using the Resource](#Using the Resource)
+- [Using_the_Resource](#Using the Resource)
   * [Installation](#Installation)
   * [Pre-requisites](#Pre-requisites)
 - [References](#References)
