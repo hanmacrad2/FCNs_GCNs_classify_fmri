@@ -23,7 +23,7 @@ The decoding model was evaluated on the fmri of 644 participants from the Cam-CA
 
 The fmri data was recorded while the participants watched a 7 minute Hitchcock film. THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
 
-<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/hitchcock_movie.jpg" width="200" />
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/hitchcock_movie.jpg" width="150" />
 
 #### Objectives 
 As mentioned above, the main focus of the analyses was;
