@@ -59,7 +59,9 @@ The model training was repeated for 10 runs so that error bars of the standard d
 This script contains various utility functions related to loading the fmri data 
 - ```get_fmri_data(root_pth, task_type)```
     - Loads the fmri data from the root path, where ```task_type = (Movie, Rest)```, pertaining to the fmri movie data or resting state data
-    - The class ```Fmri_dataset(Dataset)``` which includes the function ```split_fmri_blocks()``` which; 
+- The class ```Fmri_dataset(fmri_dataset, block_duration)``` which;
+    - Has as input the fmri_dataset (either the train or test set) and the specified block duration which it uses to split the fmri into blocks
+    - THe class includes the method ```split_fmri_blocks()``` which; 
     - Splits the fmri data into blocks of size block_duration, resulting in num_blocks blocks (num_blocks = total_time/block_duration)
     - Thus the fmri is returned split into equal sized blocks of size num_blocks x block_duration x ROIs
 - ```get_rsfmri_adj_matrix(root_pth)```
