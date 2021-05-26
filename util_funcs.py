@@ -31,11 +31,6 @@ def get_fmri_data(root_pth, task_type):
     
     return fmri_total, subj_list
 
-def preprocess_fmri(fmri):
-    '''Preprocess - filter''' 
-
-    return fmri
-
 def get_rsfmri_adj_matrix(root_pth):
     '''Get resting state & return adjacency matrix '''
     
@@ -63,7 +58,7 @@ def get_rsfmri_adj_matrix(root_pth):
 
 class Fmri_dataset(Dataset):
     
-    def __init__(self, fmri_data_matrix, TR, block_duration): #transform=False
+    def __init__(self, fmri_data_matrix, block_duration): #transform=False
         
         super(Fmri_dataset, self).__init__()
 
@@ -73,7 +68,6 @@ class Fmri_dataset(Dataset):
             self.fmri_data_matrix = fmri_data_matrix
         
         self.subject_num = self.fmri_data_matrix.shape[0]
-        self.TR = TR
         self.block_duration = block_duration
 
     #Functions needed to generate data in parallel 
@@ -93,7 +87,7 @@ class Fmri_dataset(Dataset):
         
         return tensor_x, tensor_y
 
-    def split_fmri_blocks(self, fmri_idx, TR, block_duration):
+    def split_fmri_blocks(self, fmri_idx, block_duration):
         
         '''Split fmri data into blocks of size block_duration, resulting in num_blocks blocks (total_time/block_duration)
         
