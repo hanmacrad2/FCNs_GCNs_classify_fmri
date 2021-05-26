@@ -48,19 +48,19 @@ The model training was repeated for 10 runs so that error bars of the standard d
 
 ## Code
 
-#### ``` 1_FCNs_vs_GCNs_fmri_classification```
+### ``` 1_FCNs_vs_GCNs_fmri_classification```
 - This folder contains the code for evaluating the FCNs and GCNs on the fmri data. The models are trained on various block durations and their performance metrics compared. The main results were obtained in the following jupyter notebook;
 
-```1_fmri_gcns_main.ipynb```
+#### ```1_fmri_gcns_main.ipynb```
 The models FCNs and GCNS (1st, 5th and 8th order) were trained and tested in this jupyter notebook.  The models were run for block durations of 6, 8 and 16 to both filtered and filtered + normalised fmri data. The model performance metrics such as the model accuracy were also determined here. The notebook made use of the additional class methods and fucntions from ```util_funcs.py``` and the models specified in ```models_fcns_gcns.py``` 
 
-#### ``` 2_Network_Models_FCN``` 
+### ``` 2_Network_Models_FCN``` 
 - This folder contains the code for parcellating the fmri data into distinctive cognitive networks. The FCN model was then applied to the fmri data of each parcellated network separately. This was achieved with the following scripts;
 
-```1_Networks_Data.py```
+#### ```1_Networks_Data.py```
 - Parcellates the fmri data into distinctive networks in the script
 
- ```2_Network_Models.py```
+ #### ```2_Network_Models.py```
 
 - Contains the class ```Network_Model()``` which involved training the model based on the parcellated data of each of the 7 networks including
 
