@@ -1,4 +1,4 @@
-## Fully Connected & Graphical Neural Networks to classify fmri movie data 
+## Fully Connected & Graphical Neural Networks to Classify Fmri Movie Data 
 > Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) using pytorch to fmri movie data. 
 
 - [Overview](#overview)
