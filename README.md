@@ -76,11 +76,10 @@ This script contains various utility functions related to loading the fmri data
         - Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs 
     -  The FCN model has input layer created using the pytorch method ```nn.Linear``` of;
         - input size ```input_dim``` equal to the number of ROIs (400)
-        - output size ```hidden_dim`` chosen as 128 in this instance
+        - output size ```hidden_dim``` chosen as 128 in this instance
         - A ```ReLU``` activation layer is then added
         - Followed by a ```Dropout``` layer with ```self.dropout = 0.2``` 
-    -  The pytorch method ```nn.Sequential``` is then used to create the hidden and final layer.
-    -  The first hidden layer has
+    -  The pytorch method ```nn.Sequential``` is then used to create the hidden and final layer. The first hidden layer has
         - Input of size ```hidden_dim```
         - Output of size ```hidden_dim/4```
         - A ```ReLU``` activation layer is added
