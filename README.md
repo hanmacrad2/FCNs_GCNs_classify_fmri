@@ -91,8 +91,8 @@ The model training was repeated for 10 runs so that error bars of the standard d
    - The method ```get_df_results_networks(self)``` which
       - Runs the FCN model using each network data indiviually
 
-#### ```[util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/util_funcs.py)```
-This script contains various utility functions related to loading the fmri data 
+#### ```util_funcs.py```
+The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/util_funcs.py) script contains various utility functions related to loading the fmri data 
 - ```get_fmri_data(root_pth, task_type)```
     - Loads the fmri data from the root path, where ```task_type = (Movie, Rest)```, pertaining to the fmri movie data or resting state data
 - The class ```Fmri_dataset(fmri_dataset, block_duration)``` which;
