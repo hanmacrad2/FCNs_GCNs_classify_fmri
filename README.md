@@ -80,11 +80,11 @@ The model training was repeated for 10 runs so that error bars of the standard d
 - The [2_Network_Models_FCN](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/tree/master/2_Network_Models_FCN) folder contains the code for parcellating the fmri data into distinctive cognitive networks. The FCN model was then applied to the fmri data of each parcellated network separately. This was achieved with the following scripts;
 
 #### ```1_Networks_Data.py```
-- The [1_Networks_Data.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/1_Networks_Data.py) parcellates the fmri data into distinctive networks in the script
+- The [1_Networks_Data.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/1_Networks_Data.py) script parcellates the fmri data into distinctive networks in the script
 
  #### ```2_Network_Models.py```
 
-- The [2_Network_Models.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/2_Network_models.py) contains the class ```Network_Model()``` which involved training the model based on the parcellated data of each of the 7 networks including
+- The [2_Network_Models.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/2_Network_models.py) script contains the class ```Network_Model()``` which involved training the model based on the parcellated data of each of the 7 networks including
 
   - The method ```create_network_data(self)``` which
     - Adds a column ```network``` to ```df_network``` which specifies the full name of the metric inferred from an abbreviation in the [Yeo parcellation file](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt)
@@ -106,7 +106,7 @@ The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/m
 
 #### Models
 #### ```models_fcn.py```
-- Contains the code for the Fully Connected Neural Network. 
+- The [models_fcn.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/models_fcn.py) script contains the code for the Fully Connected Neural Network. 
     - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension;
         - Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs 
     -  The FCN model has input layer created using the pytorch method ```nn.Linear``` of;
@@ -124,7 +124,7 @@ The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/m
         - Output size ```self.output_dim``` which is equal to the number of blocks in the fmri that need to be classified 
 
 ####  ```model_fcn_gcn.py```
-- Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
+- The [model_fcn_gcn.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/models_fcn_gcn.py) script contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
     - The class ``` ChebNet(block_duration, filters, n_labels, gcn_layers = num_layers, dropout=0.25,gcn_flag=True)``` was used to create the GCN models. Note that 
         - ```filters``` = 32
         - ```gcn_layers``` = ```num_layers``` = 2
