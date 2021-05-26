@@ -6,8 +6,17 @@
   * [Data](#data)
   * [Objectives](#Objectives)
 - [Results](#Results)
+  * FCN > GCN across all tests
+  * Network FCNs - Visual is best
 - [Code](#Code)
+  * 1_FCNs_vs_GCNs_fmri_classification
+  * 2_Network_Models_FCN
+  * util_funcs.py
+  * models_fcn.py
+  * models_fcn_gcn.py
 - [Using the Resource](#Code)
+  * Pre-requisites
+  * Installation
 - [References](#Code)
 
 ## Overview
