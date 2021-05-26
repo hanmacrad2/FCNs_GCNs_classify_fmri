@@ -12,7 +12,7 @@ The classification performance of the FCNs was compared to that of the GCNs to d
 ## Code 
 
 #### ```1_fmri_gcns_main.ipynb```
-The main results were ran in this jupyter notebook. The models were run for block durations of 6, 8 and 16 to both filtered and filtered + normalised fmri data. The class methods and functionality are described in the ```REAMDME``` in [FCNs_GCNs_classify_fmri](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/README.md%20%60%60%60)
+The models FCNs and GCNS (1st, 5th and 8th order) were trained and tested in this jupyter notebook.  The models were run for block durations of 6, 8 and 16 to both filtered and filtered + normalised fmri data. The model performance metrics such as the model accuracy were also determined here. The additional class methods and fucntions from ```util_funcs.py``` and ```models_fcns_gcns.py```  are described in the homepage ```REAMDME``` in [FCNs_GCNs_classify_fmri](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/README.md%20%60%60%60)
 
 ## Results
 The results obtained are as in the table below;
