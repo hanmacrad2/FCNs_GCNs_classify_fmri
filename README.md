@@ -1,5 +1,5 @@
 ## Fully Connected & Graphical Neural Networks to classify fmri movie data 
-> Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) to fmri movie data. Brain decoding
+> Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) using pytorch to fmri movie data. 
 
 - [Overview](#overview)
 - [Introduction](#Introduction)
@@ -10,13 +10,14 @@
 
 ## Overview
 
-FCNs and GCNs (1st order, 5th order, 8th order) were used to classify time blocks of fmri data across subjects.
+FCNs and GCNs (1st order, 5th order, 8th order) developed using pytorch were used to classify time blocks of fmri data across subjects.
 The fmri data came from the [Camcan study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie
-It transpired that the FCNs yielded a better predictive performance. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks (based on the Scaehfer parcellation) and determining the classification power of each network data separately. 
+It transpired that the FCNs yielded a better predictive performance. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal and determining the classification power of each network separately. 
 
 ## Introduction 
-A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. The decoding model was evaluated on the fmri recorded from 644 participants from the camcan study recorded while they watched a 7 minute Hitchcock film.
-A number of time windows for fmri classification were used including 6 blocks x TR, 8 blocks x TR and 16 blocks x TR, whereby TR is the repetition time (time it takes to scan all slices) and equal to 2.47 secs in this instance. As mentioned above, the main focus of the analyses was;
+A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
+The decoding model was evaluated on the fmri recorded from 644 participants from the camcan study recorded while they watched a 7 minute Hitchcock film. THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs)
+A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. As mentioned above, the main focus of the analyses was;
 
 #### 1. Comparison of FCNs vs GCNs
 The classification performance of the FCNs was compared to that of the GCNs to determine which was the optimal classifier in the context of decoding fmri data. 
@@ -71,8 +72,11 @@ This script contains various utility functions related to loading the fmri data
 #### Models
 #### ```models_fcn.py```
 - Contains the code for the Fully Connected Neural Network. 
-    - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs x Timepoints
-    - THe FCN architecture involved  two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
+    - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension;
+        - Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs 
+    -  The FCN model has input layer with input dimension ```input_dim```, equal to the number of ROIs (400) and output to the input layer being of size ```hidden_dim```, chosen as 128 in this instance
+    -  The pytorch method ```nn.Sequential``` is then used to create the hidden and final layer.
+    -  THe FCN architecture involved two hidden layers, one of size hidden_dim and one of size hidden_dim/4. With dropout 0.5 for latter two sets of weights and dropout of self.dropout=0.2 for the input to hidden layer.
 
 ####  ```model_fcn_gcn.py```
 - Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
