@@ -75,18 +75,16 @@ This script contains various utility functions related to loading the fmri data
     - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension;
         - Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs 
     -  The FCN model has input layer created using the pytorch method ```nn.Linear``` of;
-        - input size ```input_dim```, equal to the number of ROIs (400)
-        - output size ```hidden_dim```, chosen as 128 in this instance
-        - A ```ReLU``` activation layer is added
-    - Followed by
-        - A ```Dropout``` layer with ```self.dropout = 0.2``` 
+        - input size ```input_dim``` equal to the number of ROIs (400)
+        - output size ```hidden_dim`` chosen as 128 in this instance
+        - A ```ReLU``` activation layer is then added
+        - Followed by a ```Dropout``` layer with ```self.dropout = 0.2``` 
     -  The pytorch method ```nn.Sequential``` is then used to create the hidden and final layer.
     -  The first hidden layer has
         - Input of size ```hidden_dim```
         - Output of size ```hidden_dim/4```
         - A ```ReLU``` activation layer is added
-    - Followed by
-        - A ```Dropout``` layer with ```dropout = 0.5``` 
+        - Followed by a ```Dropout``` layer with ```dropout = 0.5``` 
     - The final output layer then has
         - Input size ```hidden_dim/4```
         - Output size ```self.output_dim``` which is equal to the number of blocks in the fmri that need to be classified 
