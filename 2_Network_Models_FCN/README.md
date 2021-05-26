@@ -7,13 +7,13 @@ The FCN model was ten applied to the fmri data of each parcellated network separ
 
 ## Code
 
-####  ```__1_Networks_Data.py__```
+####  ```1_Networks_Data.py```
 - Parcellates the fmri data into distinctive networks in the script
 
 #### ```2_Network_Models.py```
 
 - Contains the class ```Network_Model()``` which involved training the model based on the parcellated data of each of the 7 networks including
-- 
+
   - The method ```create_network_data(self)``` which
     - Adds a column ```network``` to ```df_network``` which specifies the full name of the metric inferred from an abbreviation in the [Yeo parcellation file](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt)
    - The method ```get_df_results_networks(self)``` which
