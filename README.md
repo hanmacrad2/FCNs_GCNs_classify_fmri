@@ -65,10 +65,13 @@ The following accuracy results where obtained for the FCN and GCN models when us
 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/model_training.PNG" width="500" />
+
 _FCN Model training_
 
 
+
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
+
 _FCN vs GCN Model Results_
 
 ------
