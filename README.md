@@ -50,7 +50,7 @@ Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Co
 
 ## Results 
 
-#### FCN > GCN across all tests
+### FCN > GCN across all tests
 
 The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model. 
 
@@ -64,7 +64,7 @@ __FCN vs GCN Model Results__
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
 
-#### Network FCNs - Visual is best
+### Network FCNs - Visual is best
 The Visual Network had the highest classification accuracy across subjects. That is, the model was able to best detect an underlying temporal trend across the fmri data pertaining to the Visual network. It had a classification accuracy of 71.4% as shown in the table below. This was followed by the Somatomotor Network which has a test accuracy of 62.0%. In the first plot, the model accuracy for each of the different time blocks is shown, to get an idea of how the classifiers were performing across the duration of the movie. 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/Results/network_model_results_table.PNG" width="400" />
