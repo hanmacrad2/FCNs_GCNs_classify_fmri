@@ -27,7 +27,7 @@ The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and
 
 _Yeo 7 Network Parcellation_
 
-<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/yeo_parcellation.PNG" width="500" />
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/yeo_parcellation.PNG" width="500" />Yeo 7 Network Parcellation</
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
