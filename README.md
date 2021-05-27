@@ -17,6 +17,7 @@
 - [Using_the_Resource](#Using_the_Resource)
   * [Installation](#Installation)
   * [Pre-requisites](#Pre-requisites)
+- [Slides](#Slides)
 - [References](#References)
 
 ## Overview
@@ -138,9 +139,6 @@ The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/m
         - ```gcn_layers``` = ```num_layers``` = 2
         - ```nlabels``` = Number of blocks (e.g 24 if block duration = 8, then 192/8 = 24)
 
-## Slides
-Check out the presentation slides [here](https://drive.google.com/file/d/1x_ld9EBcqWZKu7qJr4u80KyqPZB_H8mD/view?usp=sharing)
-
 ## Using_the_Resource
 
 #### Installation 
@@ -163,6 +161,8 @@ pip install -r requirements.txt
 
   - ```pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html```
 
+## Slides
+Check out the presentation slides [here](https://drive.google.com/file/d/1x_ld9EBcqWZKu7qJr4u80KyqPZB_H8mD/view?usp=sharing)
 
 ## References 
 
