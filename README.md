@@ -27,9 +27,10 @@ The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and
 
 
 
+*Yeo 7 Network Parcellation*
+
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/yeo_parcellation.PNG" width="500" />
 
-*Yeo 7 Network Parcellation*
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
@@ -62,22 +63,20 @@ Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Co
 
 The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model. 
 
-
+_FCN Model training_
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/model_training.PNG" width="500" />
 
-_FCN Model training_
-
-
+_FCN vs GCN Model Results_
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
-_FCN vs GCN Model Results_
 
 ------
 
 ### Network FCNs - Visual is best
 The Visual Network had the highest classification accuracy across subjects. That is, the model was able to best detect an underlying temporal trend across the fmri data pertaining to the Visual network. It had a classification accuracy of 71.4% as shown in the table below. This was followed by the Somatomotor Network which has a test accuracy of 62.0%. In the first plot, the model accuracy for each of the different time blocks is shown, to get an idea of how the classifiers were performing across the duration of the movie. 
+
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/Results/network_model_results_table.PNG" width="400" />
 
