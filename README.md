@@ -171,7 +171,7 @@ pip install -r requirements.txt
   - ```pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html```
 
 ## Slides
-Check out the presentation slides [here](https://drive.google.com/file/d/1x_ld9EBcqWZKu7qJr4u80KyqPZB_H8mD/view?usp=sharing)
+Check out the presentation slides [here](https://drive.google.com/file/d/1AOc5pUZn2835_BxkvyEbIyxfxE-9SNpB/view?usp=sharing)
 
 ## References 
 
