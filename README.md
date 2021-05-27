@@ -55,9 +55,12 @@ Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Co
 The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model. 
 
 __FCN Model training__
-<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/model_training.PNG" width="200" />
+
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/model_training.PNG" width="500" />
 
 __FCN vs GCN Model Results__
+
+
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
 
