@@ -1,17 +1,28 @@
-## Fully Connected & Graphical Neural Networks to classify fmri movie data 
+## Fully Connected & Graphical Neural Networks to Classify Fmri Movie Data 
 > Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) using pytorch to fmri movie data. 
 
 - [Overview](#overview)
 - [Introduction](#Introduction)
+  * [Data](#data)
+  * [Objectives](#Objectives)
 - [Results](#Results)
+  * FCN > GCN across all tests
+  * Network FCNs - Visual is best
 - [Code](#Code)
-- [Using the Resource](#Code)
-- [References](#Code)
+  * [1_FCNs_vs_GCNs_fmri_classification](#1_FCNs_vs_GCNs_fmri_classification)
+  * [2_Network_Models_FCN](#2_Network_Models_FCN)
+  * [util_funcs.py](#util_funcs.py)
+  * [models_fcn.py](#models_fcn.py)
+  * [models_fcn_gcn.py](#models_fcn_gcn.py)
+- [Using_the_Resource](#Using_the_Resource)
+  * [Installation](#Installation)
+  * [Pre-requisites](#Pre-requisites)
+- [References](#References)
 
 ## Overview
 
 FCNs and GCNs (1st order, 5th order, 8th order), developed using pytorch, were used to classify time blocks of fmri data across subjects.
-The fmri data came from the [Cam-CAN study](https://www.cam-can.org/) and was recorded while subjects watched a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints. The FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal), specifically this [Network Parcellation File](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt) and determining the classification power of each network separately. 
+The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and Neuroscience](https://www.cam-can.org/). It was recorded while subjects watched a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints. The FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal), specifically this [Network Parcellation File](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt) and determining the classification power of each network separately. 
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
@@ -19,11 +30,11 @@ A central goal in neuroscience is to understand the mechanisms in the brain resp
 #### Data
 The decoding model was evaluated on the fmri of 644 participants from the Cam-CAN study.
 
-<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/Results/network-model-stats.png" width="600" />
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/camcan_study.png" width="200" />
 
-The fmri data was recorded while the participants watched a 7 minute Hitchcock film.
+The fmri data was recorded while the participants watched a 7 minute Hitchcock film. THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
 
-THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/hitchcock_movie.jpg" width="150" />
 
 #### Objectives 
 As mentioned above, the main focus of the analyses was;
@@ -60,20 +71,20 @@ The model training was repeated for 10 runs so that error bars of the standard d
 ## Code
 
 ### ``` 1_FCNs_vs_GCNs_fmri_classification```
-- This folder contains the code for evaluating the FCNs and GCNs on the fmri data. The models are trained on various block durations and their performance metrics compared. The main results were obtained in the following jupyter notebook;
+- The [1_FCNs_vs_GCNs_fmri_classification](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/tree/master/1_FCNs_vs_GCNs_fmri_classification) folder contains the code for evaluating the FCNs and GCNs on the fmri data. The models are trained on various block durations and their performance metrics compared. The main results were obtained in the following jupyter notebook;
 
 #### ```1_fmri_gcns_main.ipynb```
 - The models FCNs and GCNS (1st, 5th and 8th order) were trained and tested in this jupyter notebook.  The models were run for block durations of 6, 8 and 16 to both filtered and filtered + normalised fmri data. The model performance metrics such as the model accuracy were also determined here. The notebook made use of the additional class methods and fucntions from ```util_funcs.py``` and the models specified in ```models_fcns_gcns.py``` 
 
 ### ``` 2_Network_Models_FCN``` 
-- This folder contains the code for parcellating the fmri data into distinctive cognitive networks. The FCN model was then applied to the fmri data of each parcellated network separately. This was achieved with the following scripts;
+- The [2_Network_Models_FCN](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/tree/master/2_Network_Models_FCN) folder contains the code for parcellating the fmri data into distinctive cognitive networks. The FCN model was then applied to the fmri data of each parcellated network separately. This was achieved with the following scripts;
 
 #### ```1_Networks_Data.py```
-- Parcellates the fmri data into distinctive networks in the script
+- The [1_Networks_Data.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/1_Networks_Data.py) script parcellates the fmri data into distinctive networks in the script
 
  #### ```2_Network_Models.py```
 
-- Contains the class ```Network_Model()``` which involved training the model based on the parcellated data of each of the 7 networks including
+- The [2_Network_Models.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/2_Network_models.py) script contains the class ```Network_Model()``` which involved training the model based on the parcellated data of each of the 7 networks including
 
   - The method ```create_network_data(self)``` which
     - Adds a column ```network``` to ```df_network``` which specifies the full name of the metric inferred from an abbreviation in the [Yeo parcellation file](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt)
@@ -81,7 +92,7 @@ The model training was repeated for 10 runs so that error bars of the standard d
       - Runs the FCN model using each network data indiviually
 
 #### ```util_funcs.py```
-This script contains various utility functions related to loading the fmri data 
+The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/util_funcs.py) script contains various utility functions related to loading the fmri data 
 - ```get_fmri_data(root_pth, task_type)```
     - Loads the fmri data from the root path, where ```task_type = (Movie, Rest)```, pertaining to the fmri movie data or resting state data
 - The class ```Fmri_dataset(fmri_dataset, block_duration)``` which;
@@ -95,7 +106,7 @@ This script contains various utility functions related to loading the fmri data
 
 #### Models
 #### ```models_fcn.py```
-- Contains the code for the Fully Connected Neural Network. 
+- The [models_fcn.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/models_fcn.py) script contains the code for the Fully Connected Neural Network. 
     - The fmri data is averaged across it's time dimension before being inputed to the FCN, so that it goes from dimension;
         - Number of subjects x ROIs x Timepoints to dimension Number of subjects x ROIs 
     -  The FCN model has input layer created using the pytorch method ```nn.Linear``` of;
@@ -113,7 +124,7 @@ This script contains various utility functions related to loading the fmri data
         - Output size ```self.output_dim``` which is equal to the number of blocks in the fmri that need to be classified 
 
 ####  ```model_fcn_gcn.py```
-- Contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
+- The [model_fcn_gcn.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/models_fcn_gcn.py) script contains the code for the Fully Connected Neural Network and Graphical Neural Network models (In the folder ``` 2_Network_Models_FCN```)
     - The class ``` ChebNet(block_duration, filters, n_labels, gcn_layers = num_layers, dropout=0.25,gcn_flag=True)``` was used to create the GCN models. Note that 
         - ```filters``` = 32
         - ```gcn_layers``` = ```num_layers``` = 2
@@ -124,14 +135,7 @@ This script contains various utility functions related to loading the fmri data
 - FCNs vs GCNs
 - Network parcellation
 
-## Using the Resource
-#### Prequisites
-- The package requirements are written in the file requirements.text
-- These can me installed by typing the following in your terminal;
-
-```
-pip install -r requirements.txt 
-```
+## Using_the_Resource
 
 #### Installation 
 Open a terminal and type:
@@ -140,6 +144,18 @@ Open a terminal and type:
 git clone https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri.git
 ```
 
+#### Prequisites
+- The package requirements are written in the file ```requirements.text```
+- These can me installed by typing the following in your terminal;
+
+```
+pip install -r requirements.txt 
+```
+- Note for ```pytorch```
+  - python version 3.8 for torch install 
+  - install torch with specific cpu and do same for scatter 
+
+  - ```pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html```
 
 
 ## References 
