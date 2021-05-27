@@ -25,10 +25,10 @@
 FCNs and GCNs (1st order, 5th order, 8th order), developed using pytorch, were used to classify time blocks of fmri data across subjects.
 The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and Neuroscience](https://www.cam-can.org/). It was recorded while subjects watched an excerpt from a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints. The FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal), specifically this [Network Parcellation File](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt) and determining the classification power of each network separately. 
 
-_Yeo 7 Network Parcellation_
+
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/yeo_parcellation.PNG" width="500" />
-<imgcaption>Yeo 7 Network Parcellation />
+_Yeo 7 Network Parcellation_
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
@@ -61,14 +61,14 @@ Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Co
 
 The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model. 
 
-__FCN Model training__
+
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/model_training.PNG" width="500" />
-
-__FCN vs GCN Model Results__
+_FCN Model training_
 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
+_FCN vs GCN Model Results_
 
 ------
 
