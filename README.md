@@ -17,12 +17,13 @@
 - [Using_the_Resource](#Using_the_Resource)
   * [Installation](#Installation)
   * [Pre-requisites](#Pre-requisites)
+- [Slides](#Slides)
 - [References](#References)
 
 ## Overview
 
 FCNs and GCNs (1st order, 5th order, 8th order), developed using pytorch, were used to classify time blocks of fmri data across subjects.
-The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and Neuroscience](https://www.cam-can.org/). It was recorded while subjects watched a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints. The FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal), specifically this [Network Parcellation File](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt) and determining the classification power of each network separately. 
+The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and Neuroscience](https://www.cam-can.org/). It was recorded while subjects watched an excerpt from a Hitchcock movie. The fmri data was split into equaly sized blocks of timepoints. The FCN and GCN models were then used in a Machine Learning manner to classify each timepoint as coming from each of the 26 blocks.  It transpired that the FCNs yielded a better predictive performance than the GCNs. FCNs were therefore used in the second part of the study for further analysis. This involved parcellating the fmri data into 7 key networks based on the [Yeo 7 Network Parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal), specifically this [Network Parcellation File](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Schaefer2018_400Parcels_7Networks_order.txt) and determining the classification power of each network separately. 
 
 ## Introduction 
 A central goal in neuroscience is to understand the mechanisms in the brain responsible for cognitive functions. A recent approach known as “brain decoding ”, involves inferring certain experimental points in time using pattern classification of brain activity across participants. Here a multidomain brain decoder was proposed that automatically learns the spatiotemporal dynamics of brain response within a short time window using a deep learning approach. 
@@ -32,7 +33,8 @@ The decoding model was evaluated on the fmri of 644 participants from the Cam-CA
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/camcan_study.png" width="200" />
 
-The fmri data was recorded while the participants watched a 7 minute Hitchcock film. THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
+
+The fmri data was recorded while the participants watched a 7 minute extract from the Hitchcock film - _Bang! You're Dead_. THe fmri data was of dimension 644 subjects x 193 timepoints x 400 Regions of Interest (ROIs). A number of time windows for fmri classification were used including 6, 8 and 16 blocks. Note that the repetition time (TR) of the fmri data, whci is the time it takes to scan all slices, is equal to 2.47 secs in this instance. 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/hitchcock_movie.jpg" width="150" />
 
@@ -50,14 +52,21 @@ Visual, Somatomotor, Dorsal Attention, Ventral Attention, Limbic, Default and Co
 
 ## Results 
 
-#### FCN > GCN across all tests
+### FCN > GCN across all tests
 
 The following accuracy results where obtained for the FCN and GCN models when used to classify the fmri data across timepoints. The FCN model performed significantly better then the GCN models. It obtained a mean accuracy of 90.7% compared to 78.5% for the 5th order GCN model, 75.1% for the 8th order GCN model and 54.1% for the 1st order GCN model. Thus for the future analyses the FCN model was used. It's architecture was also a lot more straightforward, a further advantage of the model. 
+
+__FCN Model training__
+
+<img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/model_training.PNG" width="500" />
+
+__FCN vs GCN Model Results__
+
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/1_FCNs_vs_GCNs_fmri_classification/miscellaneous_results/model_results.PNG" width="700" />
 
 
-#### Network FCNs - Visual is best
+### Network FCNs - Visual is best
 The Visual Network had the highest classification accuracy across subjects. That is, the model was able to best detect an underlying temporal trend across the fmri data pertaining to the Visual network. It had a classification accuracy of 71.4% as shown in the table below. This was followed by the Somatomotor Network which has a test accuracy of 62.0%. In the first plot, the model accuracy for each of the different time blocks is shown, to get an idea of how the classifiers were performing across the duration of the movie. 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/2_Network_Models_FCN/Results/network_model_results_table.PNG" width="400" />
@@ -130,11 +139,6 @@ The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/m
         - ```gcn_layers``` = ```num_layers``` = 2
         - ```nlabels``` = Number of blocks (e.g 24 if block duration = 8, then 192/8 = 24)
 
-## Slides
-- Intro
-- FCNs vs GCNs
-- Network parcellation
-
 ## Using_the_Resource
 
 #### Installation 
@@ -157,6 +161,8 @@ pip install -r requirements.txt
 
   - ```pip install torch==1.7.0+cu110 torchvision==0.8.1+cu110 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html```
 
+## Slides
+Check out the presentation slides [here](https://drive.google.com/file/d/1x_ld9EBcqWZKu7qJr4u80KyqPZB_H8mD/view?usp=sharing)
 
 ## References 
 
