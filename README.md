@@ -1,5 +1,5 @@
 ## Fully Connected & Graphical Neural Networks to Classify Fmri Movie Data 
-> Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) using pytorch to fmri movie data. This work was carried out with Prof Rhodri Cusack of the [Cusack lab](https://www.cusacklab.org/) at the [Trinity Centre of Neuroscience](https://www.tcd.ie/Neuroscience/), [Trinity College Dublin](https://www.tcd.ie/)
+> Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) using pytorch to fmri movie data.
 
 - [Overview](#overview)
 - [Introduction](#Introduction)
@@ -19,6 +19,8 @@
   * [Pre-requisites](#Pre-requisites)
 - [Slides](#Slides)
 - [References](#References)
+
+_This work was carried out with Prof Rhodri Cusack of the_ [Cusack lab](https://www.cusacklab.org/) _at the_ [Trinity Centre of Neuroscience](https://www.tcd.ie/Neuroscience/), [Trinity College Dublin](https://www.tcd.ie/)
 
 ## Overview
 
