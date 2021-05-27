@@ -1,6 +1,8 @@
 ## Fully Connected & Graphical Neural Networks to Classify Fmri Movie Data 
 > Application of Fully Connected Neural Networks (FCNs) & Graphical Convolutional Neural Networks (GCNs) using pytorch to fmri movie data. 
 
+*This work was carried out with Prof Rhodri Cusack of the [Cusack lab]() at the Trinity Centre of Neuroscience, Trinity College Dublin()
+
 - [Overview](#overview)
 - [Introduction](#Introduction)
   * [Data](#data)
@@ -180,4 +182,5 @@ Yeo, B. T., Krienen, F. M., Sepulcre, J., Sabuncu, M. R., Lashkari, D., Hollinsh
 Zhang, Y., Tetrel, L., Thirion, B., & Bellec, P. (2021). Functional annotation of human cognitive states using deep graph convolution. NeuroImage, 231, 117847.
 
 Zhang, Y., & Bellec, P. (2019). Functional annotation of human cognitive states using graph convolution networks.
+
 
