@@ -28,6 +28,7 @@ The fmri data came from the [Cam-CAN study - The Cambridge Centre for Ageing and
 
 
 <img src="https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/master/experimenting/yeo_parcellation.PNG" width="500" />
+
 *Yeo 7 Network Parcellation*
 
 ## Introduction 
