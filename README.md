@@ -139,9 +139,7 @@ The [util_funcs.py](https://github.com/hanmacrad2/FCNs_GCNs_classify_fmri/blob/m
         - ```nlabels``` = Number of blocks (e.g 24 if block duration = 8, then 192/8 = 24)
 
 ## Slides
-- Intro
-- FCNs vs GCNs
-- Network parcellation
+Check out the presentation slides [here](https://drive.google.com/file/d/1x_ld9EBcqWZKu7qJr4u80KyqPZB_H8mD/view?usp=sharing)
 
 ## Using_the_Resource
 
